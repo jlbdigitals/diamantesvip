@@ -1,21 +1,21 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
-RUN apk add --no-cache libssl1.1
+RUN apk add --no-cache openssl
 COPY package.json package-lock.json ./
 RUN npm ci
 
 FROM node:20-alpine AS builder
 WORKDIR /app
-RUN apk add --no-cache libssl1.1
+RUN apk add --no-cache openssl
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN mkdir -p public/uploads && \
-    npx prisma generate --skip-generate && \
+    npx prisma generate && \
     npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
-RUN apk add --no-cache libssl1.1
+RUN apk add --no-cache openssl
 ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
