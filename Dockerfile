@@ -9,7 +9,9 @@ WORKDIR /app
 RUN apk add --no-cache libssl1.1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npx prisma generate --skip-generate && npm run build
+RUN mkdir -p public/uploads && \
+    npx prisma generate --skip-generate && \
+    npm run build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
@@ -21,6 +23,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
+RUN mkdir -p public/uploads && chown -R nextjs:nodejs public/uploads
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
