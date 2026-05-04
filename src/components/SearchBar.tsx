@@ -111,7 +111,7 @@ export function SearchBar({ initialQ = '', initialToggles = [] }: SearchBarProps
         className="absolute inset-0 w-full h-full object-cover scale-105"
         style={{ filter: 'brightness(0.5) saturate(1.3) contrast(1.05)' }}
       >
-        <source src="/videos/beach-hero.mp4" type="video/mp4" />
+        <source src="/videos/video2.mp4" type="video/mp4" />
       </video>
 
       {/* Layered overlays for depth */}
