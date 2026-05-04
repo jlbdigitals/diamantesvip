@@ -120,24 +120,24 @@ export default function PhotoManager() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-amber-500">Cargando...</div>
+      <div className="min-h-screen bg-surface flex items-center justify-center">
+        <div className="text-accent">Cargando...</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-surface">
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <Link href="/admin" className="text-amber-500 hover:text-amber-400 mb-6 inline-block">
+        <Link href="/admin" className="text-accent hover:text-accent-hover mb-6 inline-block text-sm">
           ← Volver al panel
         </Link>
 
-        <h1 className="text-3xl font-bold text-white mb-2">Gestionar Fotos</h1>
-        <p className="text-gray-400 mb-6">{photos.length}/{MAX_PHOTOS} fotos</p>
+        <h1 className="text-3xl font-bold text-brand mb-2 font-serif">Gestionar Fotos</h1>
+        <p className="text-muted mb-6">{photos.length}/{MAX_PHOTOS} fotos</p>
 
         {message && (
-          <div className={`mb-6 px-4 py-2 rounded-lg text-center ${message.includes('Error') ? 'bg-red-500/10 border border-red-500 text-red-500' : 'bg-green-500/10 border border-green-500 text-green-500'}`}>
+          <div className={`mb-6 px-4 py-2 rounded-none text-center text-sm ${message.includes('Error') || message.includes('Máximo') ? 'bg-accent/10 border border-accent text-accent' : 'bg-accent/5 border border-border text-accent'}`}>
             {message}
           </div>
         )}
@@ -154,10 +154,10 @@ export default function PhotoManager() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading || photos.length >= MAX_PHOTOS}
-            className="w-full bg-zinc-800 hover:bg-zinc-700 border-2 border-dashed border-zinc-700 hover:border-amber-500 py-8 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full glass-card border-2 border-dashed border-border hover:border-accent py-8 rounded-none transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-muted text-sm"
           >
-            {uploading ? 'Subiendo...' : photos.length >= MAX_PHOTOS 
-              ? `Máximo ${MAX_PHOTOS} fotos` 
+            {uploading ? 'Subiendo...' : photos.length >= MAX_PHOTOS
+              ? `Máximo ${MAX_PHOTOS} fotos`
               : 'Click para subir foto'}
           </button>
         </div>
@@ -165,23 +165,23 @@ export default function PhotoManager() {
         {photos.length > 0 ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {photos.map((photo) => (
-              <div key={photo.id} className="relative aspect-square bg-zinc-900 rounded-xl overflow-hidden group">
+              <div key={photo.id} className="relative aspect-square bg-surface-container rounded-none overflow-hidden group border border-border">
                 <Image
                   src={photo.url}
                   alt=""
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                <div className="absolute inset-0 bg-brand/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                   <button
                     onClick={() => handleSetMain(photo.id)}
-                    className="bg-amber-500 hover:bg-amber-600 text-black text-xs font-bold px-3 py-1 rounded"
+                    className="bg-accent hover:bg-accent-hover text-white text-xs font-bold px-3 py-1 rounded-none uppercase tracking-wider"
                   >
                     Principal
                   </button>
                   <button
                     onClick={() => handleDelete(photo.id)}
-                    className="bg-red-500 hover:bg-red-600 text-white text-xs font-bold px-3 py-1 rounded"
+                    className="bg-accent border border-border text-white text-xs font-bold px-3 py-1 rounded-none uppercase tracking-wider"
                   >
                     Eliminar
                   </button>
@@ -190,7 +190,7 @@ export default function PhotoManager() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-muted-light text-sm">
             No hay fotos todavía
           </div>
         )}

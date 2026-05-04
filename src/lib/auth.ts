@@ -1,11 +1,11 @@
 import { sign, verify } from 'jsonwebtoken'
-import { compare } from 'bcryptjs'
+import { compare, hash } from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 
 const JWT_SECRET = process.env.AUTH_SECRET || 'fallback-secret'
 
 export async function hashPassword(password: string): Promise<string> {
-  return compare(password, password) as unknown as Promise<string>
+  return hash(password, 10)
 }
 
 export async function verifyPassword(password: string, hash: string): Promise<boolean> {

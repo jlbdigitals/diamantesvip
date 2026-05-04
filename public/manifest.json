@@ -1,0 +1,22 @@
+{
+  "name": "Diamantes VIP",
+  "short_name": "Diamantes VIP",
+  "description": "Directorio de acompañantes exclusivas en Chile",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#221d1d",
+  "background_color": "#f9f9f9",
+  "categories": ["lifestyle", "social"],
+  "lang": "es-CL",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

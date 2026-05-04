@@ -1,27 +1,56 @@
 import { prisma } from '@/lib/prisma'
 import { EscortCard } from '@/components/EscortCard'
+import { SearchBar } from '@/components/SearchBar'
+import { StoriesRow } from '@/components/StoriesRow'
+import { ShortsRow } from '@/components/ShortsRow'
 
 export const dynamic = 'force-dynamic'
 
-const CITIES = ['Santiago', 'Valparaíso', 'Viña del Mar', 'Concepción', ' Antofagasta', 'La Serena'] as const
+interface HomeProps {
+  searchParams: Promise<{
+    q?: string
+    toggles?: string
+  }>
+}
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ city?: string; ageMin?: string; ageMax?: string; service?: string }>
-}) {
+export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams
-  
-  const where: any = { active: true }
-  
-  if (params.city) {
-    where.city = params.city
+  const toggleKeys = params.toggles ? params.toggles.split(',') : []
+
+  const where: Record<string, unknown> = { active: true }
+  const conditions: Record<string, unknown>[] = []
+
+  if (params.q) {
+    conditions.push({
+      OR: [
+        { name: { contains: params.q } },
+        { alias: { contains: params.q } },
+        { city: { contains: params.q } },
+        { description: { contains: params.q } },
+        { nationality: { contains: params.q } },
+        { services: { contains: params.q } },
+      ],
+    })
   }
-  
-  if (params.ageMin || params.ageMax) {
-    where.age = {}
-    if (params.ageMin) where.age.gte = parseInt(params.ageMin)
-    if (params.ageMax) where.age.lte = parseInt(params.ageMax)
+
+  if (toggleKeys.includes('video')) {
+    conditions.push({ videos: { some: {} } })
+  }
+  if (toggleKeys.includes('cara')) {
+    conditions.push({ mainPhoto: { not: null } })
+  }
+  if (toggleKeys.includes('experiencias')) {
+    conditions.push({ reviews: { some: {} } })
+  }
+  if (toggleKeys.includes('disponible')) {
+    conditions.push({ availability: { not: null } })
+  }
+  if (toggleKeys.includes('promocion')) {
+    conditions.push({ featured: true })
+  }
+
+  if (conditions.length > 0) {
+    where.AND = conditions
   }
 
   const escorts = await prisma.escort.findMany({
@@ -35,74 +64,78 @@ export default async function Home({
       city: true,
       mainPhoto: true,
       featured: true,
+      price: true,
+      nationality: true,
+      verified: true,
+    },
+  })
+
+  const shorts = await prisma.video.findMany({
+    where: { escort: { active: true } },
+    orderBy: { createdAt: 'desc' },
+    include: {
+      escort: {
+        select: { name: true, alias: true, city: true, mainPhoto: true },
+      },
+    },
+    take: 16,
+  })
+
+  const storyEscorts = await prisma.escort.findMany({
+    where: { active: true, videos: { some: {} } },
+    orderBy: [{ featured: 'desc' }, { createdAt: 'desc' }],
+    select: {
+      id: true,
+      name: true,
+      alias: true,
+      city: true,
+      mainPhoto: true,
+      videos: { select: { url: true, thumbnail: true }, orderBy: { order: 'asc' } },
     },
   })
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-amber-500 mb-2">Diamantes VIP</h1>
-          <p className="text-gray-400">Acompañantes exclusivas en Chile</p>
-        </div>
+    <div className="min-h-screen relative">
+      {/* Atmospheric background */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-surface" />
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-accent/3 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-rose/20 rounded-full blur-[120px] translate-x-1/3 translate-y-1/3" />
+        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-accent-light/4 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+      </div>
 
-        <div className="mb-8 p-4 bg-zinc-900 rounded-xl border border-amber-500/20">
-          <form className="flex flex-wrap gap-4">
-            <select 
-              name="city"
-              defaultValue={params.city || ''}
-              className="bg-zinc-800 text-white px-4 py-2 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
-            >
-              <option value="">Todas las ciudades</option>
-              {CITIES.map(city => (
-                <option key={city} value={city}>{city}</option>
+      <div className="relative">
+        <SearchBar initialQ={params.q || ''} initialToggles={toggleKeys} />
+
+        <StoriesRow escorts={storyEscorts} />
+
+        <div className="max-w-7xl mx-auto px-4 py-12">
+          {escorts.length === 0 ? (
+            <div className="text-center py-20">
+              <div className="glass-card inline-block rounded-sm p-10">
+                <p className="text-2xl text-muted-light font-serif italic mb-2">Sin resultados</p>
+                <p className="text-muted-light text-sm">Intenta con otros filtros</p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 stagger">
+              {escorts.map((escort) => (
+                <EscortCard key={escort.id} escort={escort} />
               ))}
-            </select>
-            
-            <select 
-              name="ageMin"
-              defaultValue={params.ageMin || ''}
-              className="bg-zinc-800 text-white px-4 py-2 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
-            >
-              <option value="">Edad mínima</option>
-              <option value="18">18</option>
-              <option value="21">21</option>
-              <option value="25">25</option>
-              <option value="30">30</option>
-            </select>
-            
-            <select 
-              name="ageMax"
-              defaultValue={params.ageMax || ''}
-              className="bg-zinc-800 text-white px-4 py-2 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
-            >
-              <option value="">Edad máxima</option>
-              <option value="25">25</option>
-              <option value="30">30</option>
-              <option value="35">35</option>
-              <option value="40">40</option>
-            </select>
-            
-            <button 
-              type="submit"
-              className="bg-amber-500 hover:bg-amber-600 text-black font-bold px-6 py-2 rounded-lg transition-colors"
-            >
-              Filtrar
-            </button>
-          </form>
-        </div>
+            </div>
+          )}
 
-        {escorts.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-2xl text-gray-500">No hay escort disponibles</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {escorts.map((escort: { id: string; name: string; alias: string | null; age: number; city: string; mainPhoto: string | null; featured: boolean }) => (
-              <EscortCard key={escort.id} escort={escort} />
-            ))}
-          </div>
-        )}
+          <ShortsRow
+            shorts={shorts.map((v) => ({
+              id: v.id,
+              url: v.url,
+              thumbnail: v.thumbnail,
+              escortName: v.escort.alias || v.escort.name,
+              escortCity: v.escort.city,
+              escortPhoto: v.escort.mainPhoto,
+            }))}
+          />
+        </div>
       </div>
     </div>
   )

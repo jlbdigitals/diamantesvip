@@ -71,39 +71,39 @@ export default function RegisterPage() {
   const cities = ['Santiago', 'Valparaíso', 'Viña del Mar', 'Concepción', 'Antofagasta', 'La Serena']
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center py-12">
-      <div className="w-full max-w-lg p-8">
-        <h1 className="text-3xl font-bold text-amber-500 text-center mb-8">Diamantes VIP</h1>
-        <h2 className="text-xl font-bold text-white text-center mb-6">Crear Cuenta</h2>
-        
+    <div className="min-h-screen bg-surface flex items-center justify-center py-12">
+      <div className="w-full max-w-lg p-8 glass-card">
+        <h1 className="text-3xl font-bold text-accent text-center font-serif mb-8">Diamantes VIP</h1>
+        <h2 className="text-xl font-bold text-brand text-center mb-6 font-serif">Crear Cuenta</h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded-lg text-center">
+            <div className="bg-accent/10 border border-accent text-accent px-4 py-2 rounded-none text-center text-sm">
               {error}
             </div>
           )}
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 mb-2"> Email *</label>
+              <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Email *</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+                className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
                 required
               />
             </div>
-            
+
             <div>
-              <label className="block text-gray-400 mb-2">Contraseña *</label>
+              <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Contraseña *</label>
               <input
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+                className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
                 required
                 minLength={6}
               />
@@ -112,51 +112,51 @@ export default function RegisterPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 mb-2">Nombre real *</label>
+              <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Nombre real *</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+                className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
                 required
               />
             </div>
-            
+
             <div>
-              <label className="block text-gray-400 mb-2">Alias (público)</label>
+              <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Alias (público)</label>
               <input
                 type="text"
                 name="alias"
                 value={formData.alias}
                 onChange={handleChange}
-                className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+                className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 mb-2">Edad *</label>
+              <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Edad *</label>
               <input
                 type="number"
                 name="age"
                 value={formData.age}
                 onChange={handleChange}
-                className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+                className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
                 required
                 min={18}
                 max={99}
               />
             </div>
-            
+
             <div>
-              <label className="block text-gray-400 mb-2">Ciudad *</label>
+              <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Ciudad *</label>
               <select
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+                className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
               >
                 {cities.map(city => (
                   <option key={city} value={city}>{city}</option>
@@ -166,29 +166,29 @@ export default function RegisterPage() {
           </div>
 
           <div>
-            <label className="block text-gray-400 mb-2">Confirmar contraseña *</label>
+            <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Confirmar contraseña *</label>
             <input
               type="password"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+              className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
               required
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-lg transition-colors disabled:opacity-50"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 rounded-none transition-colors disabled:opacity-50 uppercase tracking-wider"
           >
             {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
           </button>
         </form>
-        
-        <p className="text-center text-gray-400 mt-6">
+
+        <p className="text-center text-muted mt-6 text-sm">
           ¿Ya tienes cuenta?{' '}
-          <a href="/admin/login" className="text-amber-500 hover:text-amber-400">
+          <a href="/admin/login" className="text-accent hover:text-accent-hover font-medium">
             Iniciar Sesión
           </a>
         </p>

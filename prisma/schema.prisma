@@ -23,21 +23,45 @@ model Escort {
   name        String
   alias       String?
   age         Int
-  city       String
+  city        String
   description String?
-  services   String?  // JSON array as string: ["Acompañamiento", "Masaje"]
-  phone      String?
-  whatsapp  String?
-  featured   Boolean  @default(false)
-  active     Boolean  @default(true)
-  mainPhoto  String?
-  createdAt  DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  services    String?  // JSON array as string: ["Acompañamiento", "Masaje"]
+  phone       String?
+  whatsapp    String?
+  featured    Boolean  @default(false)
+  active      Boolean  @default(true)
+  mainPhoto   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Campos tipo ElSilencio
+  nationality String?  // Brasileña, Chilena, etc.
+  height      Int?     // cm
+  weight      Int?     // kg
+  measurements String? // "83-57-96"
+  bodyType    String?  // Delgada, Atlética, Curvy
+  hairColor   String?  // Castaño, Rubio, Negro
+  eyeColor    String?  // Castaños, Verdes, Azules
+  bustSize    String?  // Mediano, Grande, Pequeño
+  buttSize    String?  // Mediana, Grande, Pequeña
+  waxing      String?  // Full, Parcial, Natural
+  tattoos     Boolean  @default(false)
+  piercings   Boolean  @default(false)
+  languages   String?  // JSON array: ["Español", "Inglés"]
+  atHome      Boolean  @default(false) // Depto propio
+  hotels      Boolean  @default(false)
+  homeService Boolean  @default(false) // Domicilio
+  price       Int?     // Valor por hora
+  availability String? // JSON horarios o texto simple
+  verified    Boolean  @default(false)
 
   userId     String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  
+  user       User     @relation(fields: [userId], references: [id])
+
   photos    Photo[]
+  videos    Video[]
+  reviews   Review[]
+  subscriptions Subscription[]
 }
 
 model Photo {
@@ -45,7 +69,74 @@ model Photo {
   url       String
   order     Int      @default(0)
   createdAt DateTime @default(now())
-  
+
   escortId  String
   escort    Escort   @relation(fields: [escortId], references: [id], onDelete: Cascade)
+}
+
+model Video {
+  id        String   @id @default(cuid())
+  url       String
+  thumbnail String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  escortId  String
+  escort    Escort   @relation(fields: [escortId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  author    String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+
+  escortId  String
+  escort    Escort   @relation(fields: [escortId], references: [id], onDelete: Cascade)
+}
+
+model MembershipPlan {
+  id          String   @id @default(cuid())
+  name        String   // "Básico", "VIP"
+  flowPlanId  String   @unique // Flow.cl plan ID
+  price       Int      // CLP
+  interval    String   @default("monthly") // "monthly", "yearly"
+  features    String   // JSON array
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  subscriptions Subscription[]
+}
+
+model Subscription {
+  id            String   @id @default(cuid())
+  status        String   @default("pending") // "pending", "active", "cancelled", "expired"
+  flowSubId     String?  @unique // Flow.cl subscription ID
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelledAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  escortId      String
+  escort        Escort   @relation(fields: [escortId], references: [id], onDelete: Cascade)
+
+  planId        String
+  plan          MembershipPlan @relation(fields: [planId], references: [id])
+
+  payments      Payment[]
+}
+
+model Payment {
+  id            String   @id @default(cuid())
+  flowOrderId   String?  @unique // Flow.cl order/token
+  amount        Int      // CLP
+  status        String   @default("pending") // "pending", "paid", "failed", "refunded"
+  paidAt        DateTime?
+  createdAt     DateTime @default(now())
+
+  subscriptionId String
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
 }

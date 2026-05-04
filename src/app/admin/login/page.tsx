@@ -40,52 +40,52 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="w-full max-w-md p-8">
-        <h1 className="text-3xl font-bold text-amber-500 text-center mb-8">Diamantes VIP</h1>
-        <h2 className="text-xl font-bold text-white text-center mb-6">Iniciar Sesión</h2>
-        
+    <div className="min-h-screen bg-surface flex items-center justify-center">
+      <div className="w-full max-w-md p-8 glass-card">
+        <h1 className="text-3xl font-bold text-accent text-center font-serif mb-8">Diamantes VIP</h1>
+        <h2 className="text-xl font-bold text-brand text-center mb-6 font-serif">Iniciar Sesión</h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-2 rounded-lg text-center">
+            <div className="bg-accent/10 border border-accent text-accent px-4 py-2 rounded-none text-center text-sm">
               {error}
             </div>
           )}
-          
+
           <div>
-            <label className="block text-gray-400 mb-2">Email</label>
+            <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+              className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
               required
             />
           </div>
-          
+
           <div>
-            <label className="block text-gray-400 mb-2">Contraseña</label>
+            <label className="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Contraseña</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-zinc-800 text-white px-4 py-3 rounded-lg border border-zinc-700 focus:border-amber-500 outline-none"
+              className="w-full bg-surface-container text-brand px-4 py-3 rounded-none border border-border focus:border-accent outline-none transition-colors"
               required
             />
           </div>
-          
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-black font-bold py-3 rounded-lg transition-colors disabled:opacity-50"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 rounded-none transition-colors disabled:opacity-50 uppercase tracking-wider"
           >
             {loading ? 'Ingresando...' : 'Iniciar Sesión'}
           </button>
         </form>
-        
-        <p className="text-center text-gray-400 mt-6">
+
+        <p className="text-center text-muted mt-6 text-sm">
           ¿No tienes cuenta?{' '}
-          <a href="/admin/register" className="text-amber-500 hover:text-amber-400">
+          <a href="/admin/register" className="text-accent hover:text-accent-hover font-medium">
             Regístrate
           </a>
         </p>
