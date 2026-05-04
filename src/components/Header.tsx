@@ -54,11 +54,12 @@ export function Header() {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
-        <Link
-          href="/"
-          className="text-2xl font-bold text-brand font-serif tracking-tight hover:text-accent transition-colors duration-300"
-        >
-          Diamantes<span className="text-accent font-light">VIP</span>
+        <Link href="/" className="flex items-center">
+          <img
+            src="/logo extendido.jpeg"
+            alt="Diamantes VIP"
+            className="h-10 w-auto"
+          />
         </Link>
 
         <nav className="flex items-center gap-6 font-medium text-xs tracking-[0.1em] uppercase">

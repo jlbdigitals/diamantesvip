@@ -47,8 +47,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Diamantes VIP" />
-        <link rel="apple-touch-icon" href="/icons/icon.svg" />
-        <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
+        <link rel="apple-touch-icon" href="/favicon.jpeg" />
+        <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-foreground" suppressHydrationWarning>

@@ -1,10 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function AgeVerificationPage() {
-  const router = useRouter()
   const [verified, setVerified] = useState(false)
   const [underage, setUnderage] = useState(false)
 
@@ -15,14 +13,16 @@ export default function AgeVerificationPage() {
       ?.split('=')[1]
     
     if (ageVerified === 'true') {
-      router.push('/')
+      window.location.href = '/'
     }
-  }, [router])
+  }, [])
 
   const handleVerify = () => {
     document.cookie = 'age-verified=true; path=/; max-age=31536000'
     setVerified(true)
-    setTimeout(() => router.push('/'), 500)
+    setTimeout(() => {
+      window.location.href = '/'
+    }, 500)
   }
 
   const handleUnderage = () => {

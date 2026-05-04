@@ -7,6 +7,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
+            <img
+              src="/logo cuadrado.jpeg"
+              alt="Diamantes VIP"
+              className="h-16 w-auto mb-3"
+            />
             <h3 className="text-accent font-bold text-lg font-serif mb-3">Diamantes VIP</h3>
             <p className="text-muted text-sm leading-relaxed">
               El directorio de acompañantes más exclusivo de Chile. Conectamos personas
