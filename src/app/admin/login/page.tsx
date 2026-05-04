@@ -83,6 +83,32 @@ export default function LoginPage() {
           </button>
         </form>
 
+        <div className="mt-6 pt-6 border-t border-border/40">
+          <p className="text-center text-muted text-xs mb-3">Credenciales de demo</p>
+          <div className="space-y-2">
+            <button
+              type="button"
+              onClick={() => {
+                setEmail('admin@diamantes.vip')
+                setPassword('admin123')
+              }}
+              className="w-full text-left px-3 py-2 bg-surface-container rounded-sm text-xs text-muted hover:text-brand transition-colors"
+            >
+              <span className="font-semibold">Admin:</span> admin@diamantes.vip / admin123
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setEmail('valentina@diamantes.vip')
+                setPassword('demo1234')
+              }}
+              className="w-full text-left px-3 py-2 bg-surface-container rounded-sm text-xs text-muted hover:text-brand transition-colors"
+            >
+              <span className="font-semibold">Escort:</span> valentina@diamantes.vip / demo1234
+            </button>
+          </div>
+        </div>
+
         <p className="text-center text-muted mt-6 text-sm">
           ¿No tienes cuenta?{' '}
           <a href="/admin/register" className="text-accent hover:text-accent-hover font-medium">

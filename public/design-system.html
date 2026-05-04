@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diamantes VIP — Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Public Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['Cormorant Garamond', 'ui-serif', 'Georgia', 'serif'],
+          },
+          colors: {
+            brand: '#221d1d',
+            'brand-hover': '#3a3434',
+            accent: '#af5071',
+            'accent-hover': '#8c3a5a',
+            'accent-light': '#ca6687',
+            surface: '#f9f9f9',
+            'surface-alt': '#f3f3f4',
+            'surface-container': '#eeeeee',
+            'surface-dim': '#dadada',
+            rose: '#f9e2e7',
+            'rose-soft': '#fdf2f5',
+            'rose-dark': '#f2d0d8',
+            muted: '#645d5c',
+            'muted-light': '#8c8484',
+            border: '#d0c4c3',
+            'border-light': '#e8e8e8',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --font-public-sans: 'Public Sans', ui-sans-serif, system-ui, sans-serif;
+      --font-cormorant: 'Cormorant Garamond', ui-serif, Georgia, serif;
+    }
+
+    body {
+      font-family: var(--font-public-sans);
+      background: #f9f9f9;
+      color: #1a1c1c;
+    }
+
+    .glass {
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      backdrop-filter: blur(12px) saturate(180%);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(208, 196, 195, 0.25);
+    }
+
+    .glass-strong {
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(208, 196, 195, 0.3);
+    }
+
+    .glass-card {
+      -webkit-backdrop-filter: blur(8px) saturate(180%);
+      backdrop-filter: blur(8px) saturate(180%);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(208, 196, 195, 0.2);
+      box-shadow: 0 4px 24px rgba(34, 29, 29, 0.04);
+    }
+
+    .glass-dark {
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      background: rgba(34, 29, 29, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-luxe {
+      -webkit-backdrop-filter: blur(20px) saturate(200%);
+      backdrop-filter: blur(20px) saturate(200%);
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 8px 32px rgba(175, 80, 113, 0.06), 0 2px 8px rgba(34, 29, 29, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      position: relative;
+    }
+
+    .glass-luxe::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(249,226,231,0.1) 100%);
+      pointer-events: none;
+    }
+
+    .glass-edge {
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      backdrop-filter: blur(12px) saturate(180%);
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-top: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 24px rgba(34, 29, 29, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
+    .glass-float {
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      backdrop-filter: blur(12px) saturate(180%);
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(208, 196, 195, 0.15);
+      box-shadow: 0 12px 40px rgba(175, 80, 113, 0.08), 0 4px 16px rgba(34, 29, 29, 0.06);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-float:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(175, 80, 113, 0.12), 0 8px 24px rgba(34, 29, 29, 0.08);
+      border-color: rgba(175, 80, 113, 0.15);
+    }
+
+    .glow-pulse {
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(175, 80, 113, 0.1); }
+      50% { box-shadow: 0 0 40px rgba(175, 80, 113, 0.2); }
+    }
+
+    .color-swatch {
+      transition: transform 0.2s ease;
+    }
+    .color-swatch:hover {
+      transform: scale(1.05);
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #8c8484;
+    }
+  </style>
+</head>
+<body class="min-h-full">
+  
+  <!-- Header -->
+  <header class="glass-edge sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-accent rounded-sm flex items-center justify-center text-white font-serif text-lg font-bold">D</div>
+        <h1 class="text-xl font-bold text-brand font-serif tracking-tight">Diamantes VIP <span class="text-accent font-light">Design System</span></h1>
+      </div>
+      <span class="text-xs text-muted-light uppercase tracking-widest">v1.0</span>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-12 space-y-20">
+
+    <!-- INTRO -->
+    <section>
+      <p class="section-label mb-3">Introducción</p>
+      <h2 class="text-4xl font-bold text-brand font-serif mb-4">Sistema de Diseño</h2>
+      <p class="text-muted text-lg max-w-2xl leading-relaxed">
+        Guía visual y de componentes para Diamantes VIP. Paleta de colores en tonos cálidos y neutros, 
+        tipografía elegante con serif para títulos y sans-serif para cuerpo, y efectos glassmorphism 
+        para un look premium y moderno.
+      </p>
+    </section>
+
+    <!-- COLORES -->
+    <section>
+      <p class="section-label mb-6">Paleta de Colores</p>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="color-swatch">
+          <div class="h-24 bg-brand rounded-sm mb-2 shadow-sm"></div>
+          <p class="text-xs font-semibold text-brand">Brand</p>
+          <p class="text-[10px] text-muted-light font-mono">#221d1d</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-24 bg-accent rounded-sm mb-2 shadow-sm"></div>
+          <p class="text-xs font-semibold text-brand">Accent</p>
+          <p class="text-[10px] text-muted-light font-mono">#af5071</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-24 bg-surface border border-border rounded-sm mb-2 shadow-sm"></div>
+          <p class="text-xs font-semibold text-brand">Surface</p>
+          <p class="text-[10px] text-muted-light font-mono">#f9f9f9</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-24 bg-rose rounded-sm mb-2 shadow-sm"></div>
+          <p class="text-xs font-semibold text-brand">Rose</p>
+          <p class="text-[10px] text-muted-light font-mono">#f9e2e7</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="color-swatch">
+          <div class="h-16 bg-brand-hover rounded-sm mb-2"></div>
+          <p class="text-xs font-semibold text-brand">Brand Hover</p>
+          <p class="text-[10px] text-muted-light font-mono">#3a3434</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-accent-hover rounded-sm mb-2"></div>
+          <p class="text-xs font-semibold text-brand">Accent Hover</p>
+          <p class="text-[10px] text-muted-light font-mono">#8c3a5a</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-accent-light rounded-sm mb-2"></div>
+          <p class="text-xs font-semibold text-brand">Accent Light</p>
+          <p class="text-[10px] text-muted-light font-mono">#ca6687</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-rose-soft rounded-sm mb-2 border border-border-light"></div>
+          <p class="text-xs font-semibold text-brand">Rose Soft</p>
+          <p class="text-[10px] text-muted-light font-mono">#fdf2f5</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-surface-alt rounded-sm mb-2 border border-border-light"></div>
+          <p class="text-xs font-semibold text-brand">Surface Alt</p>
+          <p class="text-[10px] text-muted-light font-mono">#f3f3f4</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-surface-container rounded-sm mb-2 border border-border-light"></div>
+          <p class="text-xs font-semibold text-brand">Surface Container</p>
+          <p class="text-[10px] text-muted-light font-mono">#eeeeee</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-muted rounded-sm mb-2"></div>
+          <p class="text-xs font-semibold text-brand">Muted</p>
+          <p class="text-[10px] text-muted-light font-mono">#645d5c</p>
+        </div>
+        <div class="color-swatch">
+          <div class="h-16 bg-muted-light rounded-sm mb-2"></div>
+          <p class="text-xs font-semibold text-brand">Muted Light</p>
+          <p class="text-[10px] text-muted-light font-mono">#8c8484</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOGRAFÍA -->
+    <section>
+      <p class="section-label mb-6">Tipografía</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="glass-card rounded-sm p-8">
+          <p class="text-xs text-muted-light uppercase tracking-widest mb-4">Public Sans — Sans Serif</p>
+          <p class="text-5xl font-light text-brand mb-2" style="font-family: var(--font-public-sans)">Aa</p>
+          <p class="text-sm text-muted mb-4">Cuerpo, navegación, botones, formularios</p>
+          <div class="space-y-2 text-sm text-brand">
+            <p class="font-light">Light 300 — Texto secundario</p>
+            <p class="font-normal">Regular 400 — Cuerpo de texto</p>
+            <p class="font-medium">Medium 500 — Énfasis</p>
+            <p class="font-semibold">Semibold 600 — Subtítulos</p>
+            <p class="font-bold">Bold 700 — Títulos menores</p>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-sm p-8">
+          <p class="text-xs text-muted-light uppercase tracking-widest mb-4">Cormorant Garamond — Serif</p>
+          <p class="text-5xl font-light text-brand mb-2 italic" style="font-family: var(--font-cormorant)">Aa</p>
+          <p class="text-sm text-muted mb-4">Títulos, headings, branding</p>
+          <div class="space-y-2 text-sm text-brand" style="font-family: var(--font-cormorant)">
+            <p class="font-light italic text-lg">Light Italic — Quotes</p>
+            <p class="font-normal text-lg">Regular — Títulos H3</p>
+            <p class="font-semibold italic text-xl">Semibold Italic — Títulos H2</p>
+            <p class="font-bold text-2xl">Bold — Títulos H1</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 glass-card rounded-sm p-8">
+        <h1 class="text-5xl font-bold text-brand font-serif mb-2">Heading 1</h1>
+        <h2 class="text-4xl font-bold text-brand font-serif italic mb-2">Heading 2 Italic</h2>
+        <h3 class="text-3xl font-bold text-brand font-serif mb-2">Heading 3</h3>
+        <h4 class="text-2xl font-bold text-brand font-serif mb-4">Heading 4</h4>
+        <p class="text-base text-brand leading-relaxed mb-2">
+          Cuerpo de texto en Public Sans. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        <p class="text-sm text-muted leading-relaxed">
+          Texto secundario en tamaño small. Ut enim ad minim veniam, quis nostrud exercitation 
+          ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </div>
+    </section>
+
+    <!-- BOTONES -->
+    <section>
+      <p class="section-label mb-6">Botones</p>
+      
+      <div class="space-y-6">
+        <div class="glass-card rounded-sm p-8">
+          <p class="text-xs text-muted-light uppercase tracking-widest mb-4">Variantes</p>
+          <div class="flex flex-wrap gap-4">
+            <button class="bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 transition-colors uppercase tracking-wider text-sm">
+              Primario
+            </button>
+            <button class="bg-accent hover:bg-accent-hover text-white font-semibold py-3 px-6 transition-colors uppercase tracking-wider text-sm">
+              Accent
+            </button>
+            <button class="glass text-brand font-semibold py-3 px-6 transition-all hover:border-accent/40 uppercase tracking-wider text-sm">
+              Secundario
+            </button>
+            <button class="text-muted hover:text-brand font-medium py-3 px-6 transition-colors text-sm">
+              Ghost
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-sm p-8">
+          <p class="text-xs text-muted-light uppercase tracking-widest mb-4">Tamaños</p>
+          <div class="flex flex-wrap items-center gap-4">
+            <button class="bg-brand text-white font-semibold py-2 px-4 text-xs uppercase tracking-wider">
+              Small
+            </button>
+            <button class="bg-brand text-white font-semibold py-3 px-6 text-sm uppercase tracking-wider">
+              Medium
+            </button>
+            <button class="bg-brand text-white font-semibold py-4 px-8 text-base uppercase tracking-wider">
+              Large
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-sm p-8">
+          <p class="text-xs text-muted-light uppercase tracking-widest mb-4">Estados</p>
+          <div class="flex flex-wrap gap-4">
+            <button class="bg-brand text-white font-semibold py-3 px-6 uppercase tracking-wider text-sm opacity-50 cursor-not-allowed">
+              Disabled
+            </button>
+            <button class="bg-accent text-white font-semibold py-3 px-6 uppercase tracking-wider text-sm glow-pulse">
+              Destacado
+            </button>
+            <button class="bg-brand text-white font-semibold py-3 px-6 uppercase tracking-wider text-sm flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+              Con Icono
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INPUTS -->
+    <section>
+      <p class="section-label mb-6">Formularios</p>
+      
+      <div class="glass-card rounded-sm p-8 max-w-lg">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Email</label>
+            <input type="email" placeholder="ejemplo@correo.com" class="w-full bg-surface-container text-brand px-4 py-3 border border-border focus:border-accent outline-none transition-colors">
+          </div>
+          <div>
+            <label class="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Contraseña</label>
+            <input type="password" placeholder="••••••••" class="w-full bg-surface-container text-brand px-4 py-3 border border-border focus:border-accent outline-none transition-colors">
+          </div>
+          <div>
+            <label class="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Ciudad</label>
+            <select class="w-full bg-surface-container text-brand px-4 py-3 border border-border focus:border-accent outline-none transition-colors">
+              <option>Santiago</option>
+              <option>Viña del Mar</option>
+              <option>Valparaíso</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-muted-light mb-2 text-sm uppercase tracking-wider font-semibold">Descripción</label>
+            <textarea rows="3" placeholder="Escribe algo..." class="w-full bg-surface-container text-brand px-4 py-3 border border-border focus:border-accent outline-none transition-colors resize-none"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GLASSMORPHISM -->
+    <section>
+      <p class="section-label mb-6">Glassmorphism</p>
+      
+      <div class="relative overflow-hidden rounded-sm min-h-[400px] flex items-center justify-center" style="background: linear-gradient(135deg, #f9e2e7 0%, #f3f3f4 50%, #fdf2f5 100%)">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-8 w-full max-w-4xl">
+          
+          <div class="glass rounded-sm p-6">
+            <p class="text-xs text-muted-light uppercase tracking-widest mb-2">.glass</p>
+            <p class="text-sm text-brand">Blur 12px + saturate 180%. Background rgba(255,255,255,0.75). Ideal para overlays y tooltips.</p>
+          </div>
+
+          <div class="glass-strong rounded-sm p-6">
+            <p class="text-xs text-muted-light uppercase tracking-widest mb-2">.glass-strong</p>
+            <p class="text-sm text-brand">Blur 16px + background 0.9. Usado en header sticky y footer.</p>
+          </div>
+
+          <div class="glass-card rounded-sm p-6">
+            <p class="text-xs text-muted-light uppercase tracking-widest mb-2">.glass-card</p>
+            <p class="text-sm text-brand">Blur 8px + shadow suave. Tarjetas de contenido y modales.</p>
+          </div>
+
+          <div class="glass-luxe rounded-sm p-6">
+            <p class="text-xs text-muted-light uppercase tracking-widest mb-2">.glass-luxe</p>
+            <p class="text-sm text-brand">Blur 20px + gradient overlay. Efecto premium para CTAs y hero sections.</p>
+          </div>
+
+          <div class="glass-edge rounded-sm p-6">
+            <p class="text-xs text-muted-light uppercase tracking-widest mb-2">.glass-edge</p>
+            <p class="text-sm text-brand">Bordes brillantes + shadow. Para headers y barras de navegación.</p>
+          </div>
+
+          <div class="glass-float rounded-sm p-6">
+            <p class="text-xs text-muted-light uppercase tracking-widest mb-2">.glass-float</p>
+            <p class="text-sm text-brand">Hover lift + shadow dinámico. Tarjetas interactivas y links.</p>
+          </div>
+
+          <div class="glass-dark rounded-sm p-6 text-white">
+            <p class="text-xs text-white/60 uppercase tracking-widest mb-2">.glass-dark</p>
+            <p class="text-sm text-white/90">Background oscuro con blur. Para overlays sobre imágenes y videos.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENTES -->
+    <section>
+      <p class="section-label mb-6">Componentes</p>
+      
+      <div class="space-y-8">
+        <!-- Escort Card -->
+        <div>
+          <p class="text-sm text-muted mb-4">Escort Card</p>
+          <div class="glass-float rounded-sm overflow-hidden max-w-xs">
+            <div class="aspect-[3/4] bg-gradient-to-br from-rose to-surface-alt relative">
+              <div class="absolute top-3 left-3">
+                <span class="bg-accent text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">VIP</span>
+              </div>
+              <div class="absolute bottom-3 right-3">
+                <span class="glass-dark text-white text-[10px] px-2 py-1">Santiago</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <div class="flex items-center justify-between mb-1">
+                <h3 class="font-bold text-brand font-serif text-lg">Valentina VIP</h3>
+                <span class="text-accent text-sm font-semibold">$180.000</span>
+              </div>
+              <p class="text-muted-light text-xs">24 años · Chilena</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Badge -->
+        <div>
+          <p class="text-sm text-muted mb-4">Badges</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-accent/10 border border-accent/20 text-accent px-3 py-1 rounded-full text-xs font-medium">Con Video</span>
+            <span class="bg-brand/10 border border-brand/20 text-brand px-3 py-1 rounded-full text-xs font-medium">Cara Visible</span>
+            <span class="bg-rose border border-rose-dark text-brand px-3 py-1 rounded-full text-xs font-medium">En Promoción</span>
+            <span class="glass-dark text-white px-3 py-1 rounded-full text-xs font-medium">Verificada</span>
+          </div>
+        </div>
+
+        <!-- Alert -->
+        <div>
+          <p class="text-sm text-muted mb-4">Alertas</p>
+          <div class="space-y-3 max-w-lg">
+            <div class="bg-accent/10 border border-accent text-accent px-4 py-3 text-sm">
+              Mensaje de éxito o información importante.
+            </div>
+            <div class="bg-brand/10 border border-brand text-brand px-4 py-3 text-sm">
+              Notificación neutral o instrucciones.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESPACIADO -->
+    <section>
+      <p class="section-label mb-6">Espaciado</p>
+      <div class="glass-card rounded-sm p-8">
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <div class="w-1 h-4 bg-accent"></div>
+            <span class="text-sm text-muted">gap-2 / 8px — Espaciado mínimo</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-2 h-4 bg-accent"></div>
+            <span class="text-sm text-muted">gap-3 / 12px — Espaciado compacto</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-3 h-4 bg-accent"></div>
+            <span class="text-sm text-muted">gap-4 / 16px — Espaciado estándar</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-4 h-4 bg-accent"></div>
+            <span class="text-sm text-muted">gap-6 / 24px — Espaciado relaxed</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-6 h-4 bg-accent"></div>
+            <span class="text-sm text-muted">gap-8 / 32px — Espaciado amplio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOMBRAS -->
+    <section>
+      <p class="section-label mb-6">Sombras</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-surface rounded-sm p-6" style="box-shadow: 0 1px 3px rgba(34,29,29,0.04)">
+          <p class="text-xs text-muted">Shadow XS</p>
+        </div>
+        <div class="bg-surface rounded-sm p-6" style="box-shadow: 0 4px 12px rgba(34,29,29,0.06)">
+          <p class="text-xs text-muted">Shadow SM</p>
+        </div>
+        <div class="bg-surface rounded-sm p-6" style="box-shadow: 0 8px 24px rgba(34,29,29,0.08)">
+          <p class="text-xs text-muted">Shadow MD</p>
+        </div>
+        <div class="bg-surface rounded-sm p-6" style="box-shadow: 0 12px 40px rgba(34,29,29,0.12)">
+          <p class="text-xs text-muted">Shadow LG</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- USO -->
+    <section>
+      <p class="section-label mb-6">Uso en Código</p>
+      <div class="glass-card rounded-sm p-8">
+        <pre class="text-sm text-brand overflow-x-auto"><code>&lt;!-- Header sticky con glass --&gt;
+&lt;header class="glass-edge sticky top-0 z-50"&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;!-- Card interactiva --&gt;
+&lt;div class="glass-float rounded-sm p-6 hover:-translate-y-1"&gt;
+  &lt;h3 class="font-serif text-brand"&gt;Título&lt;/h3&gt;
+  &lt;p class="text-muted"&gt;Contenido...&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Botón primario --&gt;
+&lt;button class="bg-brand hover:bg-brand-hover text-white 
+  font-semibold py-3 px-6 uppercase tracking-wider"&gt;
+  Click aquí
+&lt;/button&gt;
+
+&lt;!-- Input --&gt;
+&lt;input class="w-full bg-surface-container text-brand 
+  px-4 py-3 border border-border focus:border-accent outline-none" /&gt;
+
+&lt;!-- Badge --&gt;
+&lt;span class="bg-accent/10 border border-accent/20 
+  text-accent px-3 py-1 rounded-full text-xs font-medium"&gt;
+  Etiqueta
+&lt;/span&gt;</code></pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="glass-strong border-t border-border/20 mt-20">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex items-center justify-between">
+      <p class="text-muted text-sm">Diamantes VIP — Design System v1.0</p>
+      <p class="text-muted-light text-xs">2026</p>
+    </div>
+  </footer>
+
+</body>
+</html>

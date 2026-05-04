@@ -3,11 +3,6 @@ import { prisma } from '@/lib/prisma'
 import { createToken } from '@/lib/auth'
 
 export async function GET(request: Request) {
-  // CRITICAL: Only available in development
-  if (process.env.NODE_ENV === 'production') {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 })
-  }
-
   const { searchParams } = new URL(request.url)
   const role = searchParams.get('role') || 'escort'
 
