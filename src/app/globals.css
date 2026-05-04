@@ -44,35 +44,7 @@
   --color-border-light: #e8e8e8;
 }
 
-/* =========================================
-   DARK THEME overrides
-   ========================================= */
 
-[data-theme="dark"] {
-  --background: #12101a;
-  --foreground: #f0ece8;
-
-  --color-brand: #f0ece8;
-  --color-brand-hover: #d4cfc9;
-  --color-accent: #e0708a;
-  --color-accent-hover: #f090a0;
-  --color-accent-light: #c45878;
-
-  --color-surface: #12101a;
-  --color-surface-alt: #1a1825;
-  --color-surface-container: #221f2e;
-  --color-surface-dim: #3a3650;
-
-  --color-rose: #3d2030;
-  --color-rose-soft: #2a1520;
-  --color-rose-dark: #5a3048;
-
-  --color-muted: #a09aa8;
-  --color-muted-light: #706a78;
-
-  --color-border: #3a3550;
-  --color-border-light: #2a253e;
-}
 
 body {
   background: var(--background);
@@ -96,28 +68,6 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #b0a4a3;
-}
-
-/* =========================================
-   DARK THEME input/select/textarea fix
-   ========================================= */
-
-[data-theme="dark"] input,
-[data-theme="dark"] select,
-[data-theme="dark"] textarea {
-  background-color: var(--color-surface-container);
-  color: var(--color-brand);
-  border-color: var(--color-border);
-}
-
-[data-theme="dark"] select option {
-  background-color: var(--color-surface-container);
-  color: var(--color-brand);
-}
-
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder {
-  color: var(--color-muted-light);
 }
 
 /* =========================================
@@ -217,89 +167,6 @@ body {
     0 20px 60px rgba(175, 80, 113, 0.12),
     0 8px 24px rgba(34, 29, 29, 0.08);
   border-color: rgba(175, 80, 113, 0.15);
-}
-
-/* =========================================
-   DARK GLASS overrides
-   ========================================= */
-
-[data-theme="dark"] .glass {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .glass-strong {
-  background: rgba(255, 255, 255, 0.08);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme="dark"] .glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .glass-dark {
-  background: rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.05);
-}
-
-[data-theme="dark"] .glass-overlay {
-  background: rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="dark"] .glass-luxe {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 8px 32px rgba(224, 112, 138, 0.08),
-    0 2px 8px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .glass-luxe::after {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    transparent 50%,
-    rgba(224, 112, 138, 0.03) 100%
-  );
-}
-
-[data-theme="dark"] .glass-edge {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.08);
-  border-top-color: rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-[data-theme="dark"] .glass-float {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow:
-    0 12px 40px rgba(224, 112, 138, 0.06),
-    0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .glass-float:hover {
-  box-shadow:
-    0 20px 60px rgba(224, 112, 138, 0.1),
-    0 8px 24px rgba(0, 0, 0, 0.4);
-  border-color: rgba(224, 112, 138, 0.15);
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #1a1825;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #3a3550;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-  background: #4a4568;
 }
 
 /* =========================================

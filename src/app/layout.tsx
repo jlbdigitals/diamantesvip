@@ -5,7 +5,6 @@ import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 import { TopBar } from "@/components/TopBar"
 import { InstallPrompt } from "@/components/InstallPrompt"
-import { ThemeProvider } from "@/components/ThemeProvider"
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -51,14 +50,12 @@ export default function RootLayout({
         <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="min-h-full flex flex-col bg-surface text-foreground" suppressHydrationWarning>
-        <ThemeProvider>
-          <TopBar />
-          <Header />
-          {children}
-          <Footer />
-          <InstallPrompt />
-        </ThemeProvider>
+      <body className="min-h-full flex flex-col bg-surface text-foreground">
+        <TopBar />
+        <Header />
+        {children}
+        <Footer />
+        <InstallPrompt />
       </body>
     </html>
   )
