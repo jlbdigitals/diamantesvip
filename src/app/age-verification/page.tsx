@@ -3,26 +3,11 @@
 import { useState, useEffect } from 'react'
 
 export default function AgeVerificationPage() {
-  const [verified, setVerified] = useState(false)
   const [underage, setUnderage] = useState(false)
 
-  useEffect(() => {
-    const ageVerified = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('age-verified='))
-      ?.split('=')[1]
-    
-    if (ageVerified === 'true') {
-      window.location.href = '/'
-    }
-  }, [])
-
   const handleVerify = () => {
-    document.cookie = 'age-verified=true; path=/; max-age=31536000'
-    setVerified(true)
-    setTimeout(() => {
-      window.location.href = '/'
-    }, 500)
+    document.cookie = 'age-verified=true; path=/';
+    window.location.href = '/'
   }
 
   const handleUnderage = () => {
@@ -53,18 +38,6 @@ export default function AgeVerificationPage() {
         <div className="relative z-10 text-center p-8">
           <h1 className="text-4xl font-bold text-accent font-serif mb-4">Acceso Bloqueado</h1>
           <p className="text-muted text-lg">Debes tener 18 años o más para acceder a este sitio.</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (verified) {
-    return (
-      <div className="min-h-screen bg-surface flex items-center justify-center relative overflow-hidden">
-        {backgroundVideo}
-        <div className="relative z-10 text-center p-8">
-          <h1 className="text-4xl font-bold text-accent font-serif mb-4">Bienvenido</h1>
-          <p className="text-muted">Redireccionando...</p>
         </div>
       </div>
     )
