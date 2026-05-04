@@ -49,14 +49,29 @@ export function Header() {
   }
 
   return (
-    <header className="glass-edge sticky top-0 z-50">
-      {/* Top edge gradient accent */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+    <header className="glass-edge sticky top-0 z-50 overflow-hidden">
+      {/* Video background */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: 'brightness(0.35) saturate(1.2) contrast(1.1)' }}
+      >
+        <source src="/videos/video2.mp4" type="video/mp4" />
+      </video>
 
-      <div className="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      {/* Overlay for depth */}
+      <div className="absolute inset-0 bg-brand/40" />
+
+      {/* Top edge gradient accent */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/40 to-transparent z-10" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <img
-            src="/logo extendido.jpeg"
+            src="/logo-extendido.jpeg"
             alt="Diamantes VIP"
             className="h-10 w-auto"
           />

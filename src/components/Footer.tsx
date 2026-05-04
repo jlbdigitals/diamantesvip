@@ -8,7 +8,7 @@ export function Footer() {
           {/* Brand */}
           <div>
             <img
-              src="/logo cuadrado.jpeg"
+              src="/logo-cuadrado.jpeg"
               alt="Diamantes VIP"
               className="h-16 w-auto mb-3"
             />
