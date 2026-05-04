@@ -13,6 +13,7 @@ ENV DATABASE_URL=file:./prisma/data/dev.db
 RUN mkdir -p prisma/data public/uploads && \
     npx prisma generate && \
     npx prisma db push --skip-generate && \
+    npm install tsx && npx tsx scripts/seed.ts && \
     npm run build
 
 FROM node:20-alpine AS runner

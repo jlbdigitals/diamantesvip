@@ -10,9 +10,8 @@ export function Footer() {
             <img
               src="/logo-cuadrado.jpeg"
               alt="Diamantes VIP"
-              className="h-16 w-auto mb-3"
+              className="h-28 w-auto mb-4"
             />
-            <h3 className="text-accent font-bold text-lg font-serif mb-3">Diamantes VIP</h3>
             <p className="text-muted text-sm leading-relaxed">
               El directorio de acompañantes más exclusivo de Chile. Conectamos personas
               exigentes con experiencias únicas.
