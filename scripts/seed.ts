@@ -925,6 +925,7 @@ async function main() {
             price: data.price,
             availability: data.availability,
             verified: data.verified,
+            tier: data.featured ? 'VIP' : (data.price ?? 0) >= 200000 ? 'Gold' : 'Silver',
             photos: {
               create: photoUrls.map((url, idx) => ({
                 url: photo(url),
