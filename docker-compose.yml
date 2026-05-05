@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: diamantes
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      # La base de datos persiste en el host, fuera del contenedor
+      - ./data:/app/prisma/data
+      - ./public/uploads:/app/public/uploads
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:./prisma/data/dev.db
+      - PORT=3000
