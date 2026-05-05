@@ -1,0 +1,337 @@
+import { PrismaClient } from '@prisma/client'
+import { hash } from 'bcryptjs'
+
+const prisma = new PrismaClient()
+
+const TIERS = ['Silver', 'Gold', 'VIP'] as const
+
+const ESCORTS = [
+  // VIP x6
+  {
+    tier: 'VIP',
+    name: 'Valentina',
+    alias: 'Valentina VIP',
+    age: 24,
+    city: 'Santiago',
+    description: 'Soy una acompañante de alto nivel, educada y sofisticada. Mi trato es exclusivo y discreto. Me encanta conversar, viajar y compartir momentos únicos con caballeros exigentes.',
+    services: '["Cena","Viajes","Eventos","Masajes","Spa"]', phone: '+56912345678', whatsapp: '+56912345678',
+    nationality: 'Chilena', height: 170, weight: 55, measurements: '90-60-90', bodyType: 'Delgada',
+    hairColor: 'Rubio', eyeColor: 'Azules', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: false, piercings: false, languages: '["Español","Inglés"]', atHome: true, hotels: true, homeService: true,
+    price: 350000, availability: '{"LUN":"10:00 - 02:00","MAR":"10:00 - 02:00","MIE":"10:00 - 02:00","JUE":"10:00 - 02:00","VIE":"10:00 - 04:00","SAB":"12:00 - 04:00","DOM":"14:00 - 22:00"}',
+    verified: true, featured: true, mainPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'VIP',
+    name: 'Camila',
+    alias: 'Camila X',
+    age: 26,
+    city: 'Santiago',
+    description: 'Brasileña con mucho carisma y energía. Mi sonrisa es mi mejor carta de presentación. Disfruto de los buenos vinos, la música y las conversaciones profundas.',
+    services: '["Cena","Masajes","Baile","Eventos"]', phone: '+56923456789', whatsapp: '+56923456789',
+    nationality: 'Brasileña', height: 168, weight: 58, measurements: '92-62-94', bodyType: 'Atlética',
+    hairColor: 'Castaño', eyeColor: 'Verdes', bustSize: 'Grande', buttSize: 'Grande', waxing: 'Full',
+    tattoos: true, piercings: false, languages: '["Español","Portugués"]', atHome: true, hotels: true, homeService: false,
+    price: 400000, availability: '{"LUN":"12:00 - 00:00","MAR":"12:00 - 00:00","MIE":"12:00 - 00:00","JUE":"12:00 - 00:00","VIE":"12:00 - 04:00","SAB":"14:00 - 04:00","DOM":"16:00 - 22:00"}',
+    verified: true, featured: true, mainPhoto: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'VIP',
+    name: 'Isabella',
+    alias: 'Isa VIP',
+    age: 22,
+    city: 'Viña del Mar',
+    description: 'Joven, fresca y con un encanto natural. Estudio psicología y me apasiona entender a las personas. Mi compañía es cálida y auténtica.',
+    services: '["Cena","Eventos","Masajes","Spa"]', phone: '+56934567890', whatsapp: '+56934567890',
+    nationality: 'Chilena', height: 165, weight: 52, measurements: '88-58-88', bodyType: 'Delgada',
+    hairColor: 'Negro', eyeColor: 'Castaños', bustSize: 'Pequeño', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: false, piercings: true, languages: '["Español"]', atHome: false, hotels: true, homeService: true,
+    price: 300000, availability: '{"VIE":"18:00 - 02:00","SAB":"18:00 - 04:00","DOM":"18:00 - 22:00"}',
+    verified: true, featured: true, mainPhoto: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'VIP',
+    name: 'Sofía',
+    alias: 'Sofía Lux',
+    age: 28,
+    city: 'Santiago',
+    description: 'Modelo profesional y acompañante exclusiva. Mi elegancia y discreción son inigualables. Perfecta para cenas de negocios y eventos corporativos.',
+    services: '["Cena","Viajes","Eventos","Spa","Masajes"]', phone: '+56945678901', whatsapp: '+56945678901',
+    nationality: 'Argentina', height: 175, weight: 56, measurements: '90-60-92', bodyType: 'Delgada',
+    hairColor: 'Rubio', eyeColor: 'Verdes', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: false, piercings: false, languages: '["Español","Inglés","Italiano"]', atHome: true, hotels: true, homeService: true,
+    price: 450000, availability: '{"LUN":"10:00 - 02:00","MAR":"10:00 - 02:00","MIE":"10:00 - 02:00","JUE":"10:00 - 02:00","VIE":"10:00 - 04:00","SAB":"12:00 - 04:00","DOM":"14:00 - 22:00"}',
+    verified: true, featured: true, mainPhoto: 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'VIP',
+    name: 'Antonella',
+    alias: 'Anto VIP',
+    age: 25,
+    city: 'Valparaíso',
+    description: 'Venezolana con mucho sabor y alegría. Mi energía es contagiosa y sé cómo hacer que cada momento sea especial. Amante de la playa y el buen clima.',
+    services: '["Cena","Baile","Eventos","Masajes"]', phone: '+56956789012', whatsapp: '+56956789012',
+    nationality: 'Venezolana', height: 162, weight: 54, measurements: '94-64-96', bodyType: 'Curvy',
+    hairColor: 'Negro', eyeColor: 'Marrones', bustSize: 'Grande', buttSize: 'Grande', waxing: 'Full',
+    tattoos: true, piercings: false, languages: '["Español"]', atHome: true, hotels: true, homeService: true,
+    price: 320000, availability: '{"LUN":"14:00 - 22:00","MAR":"14:00 - 22:00","MIE":"14:00 - 22:00","JUE":"14:00 - 22:00","VIE":"14:00 - 02:00","SAB":"14:00 - 04:00","DOM":"16:00 - 22:00"}',
+    verified: true, featured: true, mainPhoto: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'VIP',
+    name: 'Florencia',
+    alias: 'Flor VIP',
+    age: 27,
+    city: 'Santiago',
+    description: 'Colombiana con mucha clase y elegancia. Mi objetivo es que cada encuentro sea inolvidable. Discreta, culta y con un sentido del humor único.',
+    services: '["Cena","Viajes","Eventos","Spa"]', phone: '+56967890123', whatsapp: '+56967890123',
+    nationality: 'Colombiana', height: 172, weight: 57, measurements: '90-62-92', bodyType: 'Atlética',
+    hairColor: 'Castaño', eyeColor: 'Avellana', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: false, piercings: true, languages: '["Español","Inglés"]', atHome: true, hotels: true, homeService: false,
+    price: 380000, availability: '{"LUN":"11:00 - 23:00","MAR":"11:00 - 23:00","MIE":"11:00 - 23:00","JUE":"11:00 - 23:00","VIE":"11:00 - 03:00","SAB":"13:00 - 04:00","DOM":"15:00 - 22:00"}',
+    verified: true, featured: true, mainPhoto: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600&h=800&fit=crop',
+  },
+
+  // Gold x6
+  {
+    tier: 'Gold',
+    name: 'Daniela',
+    alias: 'Dani Gold',
+    age: 23,
+    city: 'Concepción',
+    description: 'Universitaria, divertida y con mucha energía. Me encanta bailar y pasarla bien. Mi compañía es ideal para salidas y momentos descontracturados.',
+    services: '["Cena","Baile","Eventos","Masajes"]', phone: '+56978901234', whatsapp: '+56978901234',
+    nationality: 'Chilena', height: 163, weight: 51, measurements: '86-58-86', bodyType: 'Delgada',
+    hairColor: 'Rubio', eyeColor: 'Azules', bustSize: 'Pequeño', buttSize: 'Pequeña', waxing: 'Full',
+    tattoos: false, piercings: false, languages: '["Español"]', atHome: false, hotels: true, homeService: true,
+    price: 250000, availability: '{"VIE":"19:00 - 02:00","SAB":"19:00 - 04:00","DOM":"19:00 - 22:00"}',
+    verified: true, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Gold',
+    name: 'Mariana',
+    alias: 'Mari Gold',
+    age: 26,
+    city: 'Santiago',
+    description: 'Argentina apasionada y con mucho estilo. Me gusta la buena conversación, el vino tinto y los ambientes exclusivos.',
+    services: '["Cena","Eventos","Masajes","Spa"]', phone: '+56989012345', whatsapp: '+56989012345',
+    nationality: 'Argentina', height: 169, weight: 55, measurements: '90-60-90', bodyType: 'Delgada',
+    hairColor: 'Castaño', eyeColor: 'Verdes', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: true, piercings: false, languages: '["Español","Inglés"]', atHome: true, hotels: true, homeService: true,
+    price: 280000, availability: '{"LUN":"12:00 - 22:00","MAR":"12:00 - 22:00","MIE":"12:00 - 22:00","JUE":"12:00 - 22:00","VIE":"12:00 - 02:00","SAB":"14:00 - 04:00","DOM":"16:00 - 22:00"}',
+    verified: true, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Gold',
+    name: 'Julieta',
+    alias: 'Juli Gold',
+    age: 24,
+    city: 'Antofagasta',
+    description: 'Norteña carismática y con mucha onda. Disfruto de la vida al aire libre, la playa y las noches largas.',
+    services: '["Cena","Eventos","Masajes"]', phone: '+56990123456', whatsapp: '+56990123456',
+    nationality: 'Chilena', height: 166, weight: 53, measurements: '88-60-88', bodyType: 'Delgada',
+    hairColor: 'Negro', eyeColor: 'Castaños', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Parcial',
+    tattoos: false, piercings: true, languages: '["Español"]', atHome: true, hotels: false, homeService: true,
+    price: 220000, availability: '{"VIE":"18:00 - 02:00","SAB":"18:00 - 04:00","DOM":"18:00 - 22:00"}',
+    verified: true, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Gold',
+    name: 'Paula',
+    alias: 'Paula Gold',
+    age: 29,
+    city: 'La Serena',
+    description: 'Mujer madura, segura de sí misma y con mucha experiencia. Sé exactamente lo que un hombre necesita para relajarse y disfrutar.',
+    services: '["Cena","Viajes","Masajes","Spa"]', phone: '+56901234567', whatsapp: '+56901234567',
+    nationality: 'Chilena', height: 170, weight: 59, measurements: '92-64-94', bodyType: 'Curvy',
+    hairColor: 'Rubio', eyeColor: 'Azules', bustSize: 'Grande', buttSize: 'Grande', waxing: 'Full',
+    tattoos: false, piercings: false, languages: '["Español","Inglés"]', atHome: true, hotels: true, homeService: true,
+    price: 260000, availability: '{"LUN":"10:00 - 22:00","MAR":"10:00 - 22:00","MIE":"10:00 - 22:00","JUE":"10:00 - 22:00","VIE":"10:00 - 02:00","SAB":"12:00 - 04:00","DOM":"14:00 - 22:00"}',
+    verified: true, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Gold',
+    name: 'Renata',
+    alias: 'Rena Gold',
+    age: 25,
+    city: 'Santiago',
+    description: 'Brasileña con mucho ritmo y sensualidad. Mi compañía es perfecta para quienes buscan pasarla bien sin complicaciones.',
+    services: '["Cena","Baile","Eventos","Masajes"]', phone: '+56911223344', whatsapp: '+56911223344',
+    nationality: 'Brasileña', height: 167, weight: 56, measurements: '90-62-92', bodyType: 'Atlética',
+    hairColor: 'Castaño', eyeColor: 'Marrones', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: true, piercings: false, languages: '["Español","Portugués"]', atHome: true, hotels: true, homeService: false,
+    price: 290000, availability: '{"LUN":"13:00 - 23:00","MAR":"13:00 - 23:00","MIE":"13:00 - 23:00","JUE":"13:00 - 23:00","VIE":"13:00 - 03:00","SAB":"15:00 - 04:00","DOM":"17:00 - 22:00"}',
+    verified: true, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1523264939339-c89f9dadde2e?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Gold',
+    name: 'Luciana',
+    alias: 'Luci Gold',
+    age: 22,
+    city: 'Valparaíso',
+    description: 'Joven, dulce y muy carismática. Estudio diseño y tengo un ojo especial para los detalles. Me encanta la buena música y los lugares con onda.',
+    services: '["Cena","Eventos","Masajes"]', phone: '+56922334455', whatsapp: '+56922334455',
+    nationality: 'Chilena', height: 164, weight: 50, measurements: '86-58-86', bodyType: 'Delgada',
+    hairColor: 'Rubio', eyeColor: 'Verdes', bustSize: 'Pequeño', buttSize: 'Pequeña', waxing: 'Full',
+    tattoos: false, piercings: true, languages: '["Español"]', atHome: false, hotels: true, homeService: true,
+    price: 240000, availability: '{"VIE":"19:00 - 02:00","SAB":"19:00 - 04:00","DOM":"19:00 - 22:00"}',
+    verified: true, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=800&fit=crop',
+  },
+
+  // Silver x6
+  {
+    tier: 'Silver',
+    name: 'Fernanda',
+    alias: 'Fer Silver',
+    age: 21,
+    city: 'Santiago',
+    description: 'Estudiante universitaria, divertida y espontánea. Busco generar ingresos mientras termino mi carrera. Mi trato es genuino y sin apuros.',
+    services: '["Cena","Masajes"]', phone: '+56933445566', whatsapp: '+56933445566',
+    nationality: 'Chilena', height: 160, weight: 48, measurements: '84-56-84', bodyType: 'Delgada',
+    hairColor: 'Castaño', eyeColor: 'Castaños', bustSize: 'Pequeño', buttSize: 'Pequeña', waxing: 'Full',
+    tattoos: false, piercings: false, languages: '["Español"]', atHome: false, hotels: true, homeService: true,
+    price: 180000, availability: '{"VIE":"20:00 - 02:00","SAB":"20:00 - 04:00","DOM":"20:00 - 22:00"}',
+    verified: false, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1512310604669-443f26c35f52?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Silver',
+    name: 'Carolina',
+    alias: 'Caro Silver',
+    age: 23,
+    city: 'Concepción',
+    description: 'Tranquila, amable y con buena onda. Prefiero encuentros íntimos y relajados donde podamos conocernos de verdad.',
+    services: '["Cena","Masajes","Eventos"]', phone: '+56944556677', whatsapp: '+56944556677',
+    nationality: 'Chilena', height: 165, weight: 52, measurements: '88-60-88', bodyType: 'Delgada',
+    hairColor: 'Negro', eyeColor: 'Marrones', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Parcial',
+    tattoos: false, piercings: false, languages: '["Español"]', atHome: true, hotels: false, homeService: true,
+    price: 160000, availability: '{"VIE":"19:00 - 23:00","SAB":"19:00 - 02:00"}',
+    verified: false, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Silver',
+    name: 'Victoria',
+    alias: 'Vicky Silver',
+    age: 24,
+    city: 'Santiago',
+    description: 'Venezolana recién llegada a Chile. Dulce, alegre y con muchas ganas de conocer gente nueva.',
+    services: '["Cena","Masajes"]', phone: '+56955667788', whatsapp: '+56955667788',
+    nationality: 'Venezolana', height: 168, weight: 55, measurements: '90-62-90', bodyType: 'Delgada',
+    hairColor: 'Castaño', eyeColor: 'Verdes', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: false, piercings: false, languages: '["Español"]', atHome: false, hotels: true, homeService: true,
+    price: 190000, availability: '{"LUN":"18:00 - 22:00","MAR":"18:00 - 22:00","MIE":"18:00 - 22:00","JUE":"18:00 - 22:00","VIE":"18:00 - 02:00","SAB":"18:00 - 04:00"}',
+    verified: false, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1542596594-649edbc13630?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Silver',
+    name: 'Alejandra',
+    alias: 'Ale Silver',
+    age: 26,
+    city: 'La Serena',
+    description: 'Mujer de pueblo, sencilla y con mucho corazón. Me encanta la playa, el sol y las conversaciones sin filtro.',
+    services: '["Cena","Eventos"]', phone: '+56966778899', whatsapp: '+56966778899',
+    nationality: 'Chilena', height: 162, weight: 54, measurements: '88-62-90', bodyType: 'Curvy',
+    hairColor: 'Rubio', eyeColor: 'Azules', bustSize: 'Mediano', buttSize: 'Grande', waxing: 'Full',
+    tattoos: true, piercings: false, languages: '["Español"]', atHome: true, hotels: false, homeService: true,
+    price: 170000, availability: '{"VIE":"19:00 - 02:00","SAB":"19:00 - 04:00","DOM":"19:00 - 22:00"}',
+    verified: false, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1485893086445-ed75865251e0?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Silver',
+    name: 'Natalia',
+    alias: 'Nati Silver',
+    age: 22,
+    city: 'Viña del Mar',
+    description: 'Joven, extrovertida y con mucha energía. Estudio turismo y me encanta mostrar lo mejor de cada ciudad.',
+    services: '["Cena","Masajes","Eventos"]', phone: '+56977889900', whatsapp: '+56977889900',
+    nationality: 'Chilena', height: 166, weight: 51, measurements: '86-58-88', bodyType: 'Delgada',
+    hairColor: 'Negro', eyeColor: 'Castaños', bustSize: 'Pequeño', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: false, piercings: true, languages: '["Español","Inglés"]', atHome: false, hotels: true, homeService: true,
+    price: 175000, availability: '{"VIE":"20:00 - 02:00","SAB":"20:00 - 04:00","DOM":"20:00 - 22:00"}',
+    verified: false, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=800&fit=crop',
+  },
+  {
+    tier: 'Silver',
+    name: 'Melissa',
+    alias: 'Mel Silver',
+    age: 25,
+    city: 'Santiago',
+    description: 'Colombiana divertida y sin complicaciones. Me gusta la música urbana, bailar y pasarla bien.',
+    services: '["Cena","Baile","Masajes"]', phone: '+56988990011', whatsapp: '+56988990011',
+    nationality: 'Colombiana', height: 164, weight: 53, measurements: '90-60-92', bodyType: 'Atlética',
+    hairColor: 'Castaño', eyeColor: 'Marrones', bustSize: 'Mediano', buttSize: 'Mediana', waxing: 'Full',
+    tattoos: true, piercings: false, languages: '["Español"]', atHome: true, hotels: true, homeService: false,
+    price: 200000, availability: '{"LUN":"19:00 - 23:00","MAR":"19:00 - 23:00","MIE":"19:00 - 23:00","JUE":"19:00 - 23:00","VIE":"19:00 - 03:00","SAB":"19:00 - 04:00"}',
+    verified: false, featured: false, mainPhoto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=800&fit=crop',
+  },
+]
+
+async function main() {
+  console.log('Creando escorts de ejemplo...')
+
+  for (let i = 0; i < ESCORTS.length; i++) {
+    const e = ESCORTS[i] as any
+    const email = `escort${i + 1}@diamantes.vip`
+
+    // Skip if user exists
+    const existing = await prisma.user.findUnique({ where: { email } })
+    if (existing) {
+      console.log(`  Skip: ${e.alias} (ya existe)`)
+      continue
+    }
+
+    const hashedPassword = await hash('demo1234', 10)
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        role: 'escort',
+      },
+    })
+
+    await prisma.escort.create({
+      data: {
+        userId: user.id,
+        name: e.name,
+        alias: e.alias,
+        age: e.age,
+        city: e.city,
+        description: e.description,
+        services: e.services,
+        phone: e.phone,
+        whatsapp: e.whatsapp,
+        featured: e.featured,
+        active: true,
+        mainPhoto: e.mainPhoto,
+        nationality: e.nationality,
+        height: e.height,
+        weight: e.weight,
+        measurements: e.measurements,
+        bodyType: e.bodyType,
+        hairColor: e.hairColor,
+        eyeColor: e.eyeColor,
+        bustSize: e.bustSize,
+        buttSize: e.buttSize,
+        waxing: e.waxing,
+        tattoos: e.tattoos,
+        piercings: e.piercings,
+        languages: e.languages,
+        atHome: e.atHome,
+        hotels: e.hotels,
+        homeService: e.homeService,
+        price: e.price,
+        availability: e.availability,
+        verified: e.verified,
+        tier: e.tier,
+      },
+    })
+
+    console.log(`  Creada: ${e.alias} (${e.tier})`)
+  }
+
+  console.log('Listo!')
+}
+
+main()
+  .catch((e) => { console.error(e); process.exit(1) })
+  .finally(() => prisma.$disconnect())

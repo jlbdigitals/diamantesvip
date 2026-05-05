@@ -54,6 +54,7 @@ model Escort {
   price       Int?     // Valor por hora
   availability String? // JSON horarios o texto simple
   verified    Boolean  @default(false)
+  tier        String   @default("Silver") // "Silver", "Gold", "VIP"
 
   userId     String   @unique
   user       User     @relation(fields: [userId], references: [id])
