@@ -56,6 +56,7 @@ interface EscortProfile {
   price: number | null
   availability: string | null
   verified: boolean
+  tier: string
   photos: Photo[]
   videos: Video[]
   reviews: Review[]
@@ -102,8 +103,9 @@ export default function EscortProfilePage({ escort }: { escort: EscortProfile })
   }
 
   // Tipo de escort para badge
-  const tierLabel = escort.featured ? 'VIP' : 'Gold'
-  const tierColor = escort.featured ? '#db7581' : '#c5a059'
+  const tierStyles: Record<string, string> = { VIP: '#db7581', Gold: '#c5a059', Silver: '#8c8484' }
+  const tierLabel = escort.tier || 'Silver'
+  const tierColor = tierStyles[tierLabel] || '#8c8484'
 
   return (
     <div className="min-h-screen bg-surface">
@@ -166,7 +168,7 @@ export default function EscortProfilePage({ escort }: { escort: EscortProfile })
         {/* 2. Nombre + Badges */}
         <div className="mb-4">
           <div className="flex items-center gap-2 flex-wrap">
-            <h1 className="text-2xl md:text-4xl font-bold text-brand font-serif lowercase tracking-tight">
+            <h1 className="text-2xl md:text-4xl font-bold text-brand font-serif capitalize tracking-tight">
               {escort.alias || escort.name}
             </h1>
             {escort.verified && (

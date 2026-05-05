@@ -30,12 +30,12 @@ export function Header() {
   }
 
   const navLinks = [
-    { href: '/', label: 'Inicio' },
-    { href: '#', label: 'Diamantes Vip' },
-    { href: '#', label: 'Diamantes Gold' },
-    { href: '#', label: 'Diamantes Silver' },
-    { href: '/anunciate', label: 'Anúnciate' },
-    { href: 'https://wa.me/56932508878', label: 'Contáctanos', external: true },
+    { key: 'inicio', href: '/', label: 'Inicio' },
+    { key: 'vip', href: '#', label: 'Diamantes Vip' },
+    { key: 'gold', href: '#', label: 'Diamantes Gold' },
+    { key: 'silver', href: '#', label: 'Diamantes Silver' },
+    { key: 'anunciate', href: '/anunciate', label: 'Anúnciate' },
+    { key: 'contacto', href: 'https://wa.me/56932508878', label: 'Contáctanos', external: true },
   ]
 
   return (
@@ -58,7 +58,7 @@ export function Header() {
             {navLinks.map((link) =>
               link.external ? (
                 <a
-                  key={link.href}
+                  key={link.key}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -68,7 +68,7 @@ export function Header() {
                 </a>
               ) : (
                 <Link
-                  key={link.href}
+                  key={link.key}
                   href={link.href}
                   className="text-muted-light hover:text-brand transition-colors duration-300"
                 >
@@ -150,7 +150,7 @@ export function Header() {
               {navLinks.map((link, index) =>
                 link.external ? (
                   <a
-                    key={link.href}
+                    key={link.key}
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -165,7 +165,7 @@ export function Header() {
                   </a>
                 ) : (
                   <Link
-                    key={link.href}
+                    key={link.key}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
                     className="group flex items-center py-3.5 px-4 rounded-xl text-[#727272] hover:text-brand hover:bg-[#f9dade]/60 transition-all duration-300"

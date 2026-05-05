@@ -13,6 +13,12 @@ interface HomeProps {
   }>
 }
 
+const TIER_TITLES: Record<string, { label: string; color: string }> = {
+  VIP: { label: 'Diamantes VIP', color: '#db7581' },
+  Gold: { label: 'Diamantes Gold', color: '#c5a059' },
+  Silver: { label: 'Diamantes Silver', color: '#8c8484' },
+}
+
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams
   const toggleKeys = params.toggles ? params.toggles.split(',') : []
@@ -67,6 +73,7 @@ export default async function Home({ searchParams }: HomeProps) {
       price: true,
       nationality: true,
       verified: true,
+      tier: true,
     },
   })
 
@@ -94,9 +101,13 @@ export default async function Home({ searchParams }: HomeProps) {
     },
   })
 
+  const hasSearch = !!params.q || toggleKeys.length > 0
+  const vipEscorts = escorts.filter((e) => e.tier === 'VIP')
+  const goldEscorts = escorts.filter((e) => e.tier === 'Gold')
+  const silverEscorts = escorts.filter((e) => e.tier === 'Silver')
+
   return (
     <div className="min-h-screen relative">
-      {/* Atmospheric background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-surface" />
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-accent/3 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2" />
@@ -117,11 +128,37 @@ export default async function Home({ searchParams }: HomeProps) {
                 <p className="text-muted-light text-sm">Intenta con otros filtros</p>
               </div>
             </div>
-          ) : (
+          ) : hasSearch ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 stagger">
               {escorts.map((escort) => (
                 <EscortCard key={escort.id} escort={escort} />
               ))}
+            </div>
+          ) : (
+            <div className="space-y-14">
+              {/* VIP section */}
+              {vipEscorts.length > 0 && (
+                <Section
+                  tier="VIP"
+                  escorts={vipEscorts}
+                />
+              )}
+
+              {/* Gold section */}
+              {goldEscorts.length > 0 && (
+                <Section
+                  tier="Gold"
+                  escorts={goldEscorts}
+                />
+              )}
+
+              {/* Silver section */}
+              {silverEscorts.length > 0 && (
+                <Section
+                  tier="Silver"
+                  escorts={silverEscorts}
+                />
+              )}
             </div>
           )}
 
@@ -136,6 +173,45 @@ export default async function Home({ searchParams }: HomeProps) {
             }))}
           />
         </div>
+      </div>
+    </div>
+  )
+}
+
+function Section({
+  tier,
+  escorts,
+}: {
+  tier: string
+  escorts: {
+    id: string
+    name: string
+    alias: string | null
+    age: number
+    city: string
+    mainPhoto: string | null
+    featured: boolean
+    price: number | null
+    nationality: string | null
+    verified: boolean
+    tier: string
+  }[]
+}) {
+  const { label, color } = TIER_TITLES[tier] || { label: tier, color: '#8c8484' }
+
+  return (
+    <div>
+      <div className="flex items-center gap-3 mb-5">
+        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+        <h2 className="text-xl md:text-2xl font-bold font-serif italic" style={{ color }}>
+          {label}
+        </h2>
+        <span className="text-xs text-muted-light">({escorts.length})</span>
+      </div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 stagger">
+        {escorts.map((escort) => (
+          <EscortCard key={escort.id} escort={escort} />
+        ))}
       </div>
     </div>
   )

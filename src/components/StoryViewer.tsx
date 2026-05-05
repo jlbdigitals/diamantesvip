@@ -187,7 +187,7 @@ export function StoryViewer({ escorts, initialIndex, onClose }: StoryViewerProps
       </div>
 
       {/* Header */}
-      <div className="glass-dark absolute top-10 left-0 right-0 z-10 flex items-center gap-3 px-4 py-3">
+      <div className="glass-dark absolute top-10 left-0 right-0 z-20 flex items-center gap-3 px-4 py-3">
         <span className="text-white font-bold text-sm">
           {currentEscort.alias || currentEscort.name}
         </span>

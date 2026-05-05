@@ -97,7 +97,7 @@ export function InstallPrompt() {
         {isIOS && !deferredPrompt ? (
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="text-3xl">💎</span>
+              <img src="/favicon.jpeg" alt="Diamantes VIP" className="w-10 h-10 rounded-xl" />
               <span className="text-brand font-bold font-serif text-lg">Diamantes VIP</span>
             </div>
             <p className="text-muted-light text-xs mb-3 leading-relaxed">
@@ -120,8 +120,8 @@ export function InstallPrompt() {
         ) : (
           /* Android/Chrome install prompt */
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-brand flex items-center justify-center text-2xl flex-shrink-0">
-              💎
+            <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0">
+              <img src="/favicon.jpeg" alt="Diamantes VIP" className="w-full h-full object-cover" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-brand font-bold text-sm font-serif">Diamantes VIP</p>
@@ -130,7 +130,8 @@ export function InstallPrompt() {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleInstall}
-                className="bg-accent hover:bg-accent-hover text-white text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-[0.08em] transition-all"
+                className="text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-[0.08em] transition-all"
+                style={{ backgroundColor: '#f9dade', color: '#727272' }}
               >
                 Instalar
               </button>
