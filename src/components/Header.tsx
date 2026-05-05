@@ -31,11 +31,11 @@ export function Header() {
 
   const navLinks = [
     { key: 'inicio', href: '/', label: 'Inicio' },
-    { key: 'vip', href: '#', label: 'Diamantes Vip' },
-    { key: 'gold', href: '#', label: 'Diamantes Gold' },
-    { key: 'silver', href: '#', label: 'Diamantes Silver' },
+    { key: 'vip', href: '/?tier=VIP', label: 'Diamantes Vip' },
+    { key: 'gold', href: '/?tier=Gold', label: 'Diamantes Gold' },
+    { key: 'silver', href: '/?tier=Silver', label: 'Diamantes Silver' },
     { key: 'anunciate', href: '/anunciate', label: 'Anúnciate' },
-    { key: 'contacto', href: 'https://wa.me/56932508878', label: 'Contáctanos', external: true },
+    { key: 'contacto', href: '/contacto', label: 'Contáctanos' },
   ]
 
   return (
@@ -55,18 +55,7 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 font-medium text-xs tracking-[0.1em] uppercase">
-            {navLinks.map((link) =>
-              link.external ? (
-                <a
-                  key={link.key}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-light hover:text-brand transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
-              ) : (
+            {navLinks.map((link) => (
                 <Link
                   key={link.key}
                   href={link.href}
@@ -147,23 +136,7 @@ export function Header() {
 
             {/* Navigation */}
             <nav className="flex flex-col gap-1">
-              {navLinks.map((link, index) =>
-                link.external ? (
-                  <a
-                    key={link.key}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setMenuOpen(false)}
-                    className="group flex items-center py-3.5 px-4 rounded-xl text-[#727272] hover:text-brand hover:bg-[#f9dade]/60 transition-all duration-300"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <span className="text-base font-medium tracking-wide">{link.label}</span>
-                    <svg className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-[#db7581]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                ) : (
+              {navLinks.map((link, index) => (
                   <Link
                     key={link.key}
                     href={link.href}
@@ -176,8 +149,7 @@ export function Header() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </Link>
-                )
-              )}
+              ))}
             </nav>
 
             {/* Bottom accent */}

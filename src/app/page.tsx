@@ -10,6 +10,7 @@ interface HomeProps {
   searchParams: Promise<{
     q?: string
     toggles?: string
+    tier?: string
   }>
 }
 
@@ -53,6 +54,10 @@ export default async function Home({ searchParams }: HomeProps) {
   }
   if (toggleKeys.includes('promocion')) {
     conditions.push({ featured: true })
+  }
+
+  if (params.tier && ['VIP', 'Gold', 'Silver'].includes(params.tier)) {
+    conditions.push({ tier: params.tier })
   }
 
   if (conditions.length > 0) {
@@ -101,7 +106,8 @@ export default async function Home({ searchParams }: HomeProps) {
     },
   })
 
-  const hasSearch = !!params.q || toggleKeys.length > 0
+  const hasSearch = !!params.q || toggleKeys.length > 0 || !!params.tier
+  const activeTier = params.tier && ['VIP', 'Gold', 'Silver'].includes(params.tier) ? params.tier : null
   const vipEscorts = escorts.filter((e) => e.tier === 'VIP')
   const goldEscorts = escorts.filter((e) => e.tier === 'Gold')
   const silverEscorts = escorts.filter((e) => e.tier === 'Silver')
@@ -128,6 +134,8 @@ export default async function Home({ searchParams }: HomeProps) {
                 <p className="text-muted-light text-sm">Intenta con otros filtros</p>
               </div>
             </div>
+          ) : activeTier ? (
+            <Section tier={activeTier} escorts={escorts} />
           ) : hasSearch ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 stagger">
               {escorts.map((escort) => (
