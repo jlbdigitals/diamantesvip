@@ -1,68 +1,67 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function AgeVerificationPage() {
-  const [underage, setUnderage] = useState(false)
-
   const handleVerify = () => {
-    document.cookie = 'age-verified=true; path=/';
+    document.cookie = 'age-verified=true; path=/'
     window.location.href = '/'
   }
 
-  const handleUnderage = () => {
-    setUnderage(true)
-  }
-
-  const backgroundVideo = (
-    <>
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ filter: 'brightness(0.4) saturate(1.2) contrast(1.1)' }}
-      >
-        <source src="/videos/video1.mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 bg-brand/50" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-transparent" />
-    </>
-  )
-
-  if (underage) {
-    return (
-      <div className="min-h-screen bg-surface flex items-center justify-center relative overflow-hidden">
-        {backgroundVideo}
-        <div className="relative z-10 text-center p-8">
-          <h1 className="text-4xl font-bold text-accent font-serif mb-4">Acceso Bloqueado</h1>
-          <p className="text-muted text-lg">Debes tener 18 años o más para acceder a este sitio.</p>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="min-h-screen bg-surface flex items-center justify-center relative overflow-hidden">
-      {backgroundVideo}
-      <div className="relative z-10 glass-card text-center p-8 max-w-md">
-        <h1 className="text-4xl font-bold text-brand font-serif mb-4">Diamantes VIP</h1>
-        <p className="text-muted text-lg mb-8">Este sitio contiene contenido para adultos.</p>
-        
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm px-6">
+      <div className="flex flex-col items-center w-full max-w-xs bg-[#f9f9f9] rounded-[48px] shadow-xl p-8 space-y-6">
+        {/* Logo cuadrado */}
+        <Image
+          src="/logo-cuadrado.jpeg"
+          alt="Diamantes VIP"
+          width={200}
+          height={200}
+          className="rounded-2xl"
+          priority
+        />
+
+        {/* Texto */}
+        <p className="text-center text-base font-medium" style={{ color: '#727272' }}>
+          Este sitio es solo para adultos
+        </p>
+
+        {/* Botón mayor de edad */}
         <button
           onClick={handleVerify}
-          className="block w-full py-3 px-6 bg-brand hover:bg-brand-hover text-white font-semibold rounded-none mb-4 transition-colors uppercase tracking-wider text-sm"
+          className="w-full py-3.5 px-6 rounded-xl text-sm font-semibold tracking-wide uppercase transition-colors active:scale-[0.98]"
+          style={{ backgroundColor: '#f9dade', color: '#727272' }}
         >
           Soy mayor de 18 años
         </button>
-        
-        <button
-          onClick={handleUnderage}
-          className="text-muted-light hover:text-muted transition-colors text-sm underline underline-offset-4"
+
+        {/* Enlace menor de edad */}
+        <a
+          href="https://www.google.com"
+          className="text-sm underline underline-offset-4 transition-colors"
+          style={{ color: '#727272' }}
         >
           Soy menor de 18 años
-        </button>
+        </a>
+
+        {/* Botones outline */}
+        <div className="flex w-full gap-3 pt-2">
+          <Link
+            href="/anunciate"
+            className="flex-1 py-3 px-4 rounded-md text-sm font-medium text-center border transition-colors active:scale-[0.98]"
+            style={{ borderColor: '#727272', color: '#727272' }}
+          >
+            Anúnciate
+          </Link>
+          <a
+            href="https://wa.me/56932508878"
+            className="flex-1 py-3 px-4 rounded-md text-sm font-medium text-center border transition-colors active:scale-[0.98]"
+            style={{ borderColor: '#727272', color: '#727272' }}
+          >
+            Contáctanos
+          </a>
+        </div>
       </div>
     </div>
   )

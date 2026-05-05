@@ -101,35 +101,20 @@ export function SearchBar({ initialQ = '', initialToggles = [] }: SearchBarProps
   const activeChips = TOGGLES.filter((t) => activeToggles.has(t.key))
 
   return (
-    <section className="relative overflow-hidden min-h-[420px] flex items-center">
-      {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover scale-105"
-        style={{ filter: 'brightness(0.5) saturate(1.3) contrast(1.05)' }}
-      >
-        <source src="/videos/video2.mp4" type="video/mp4" />
-      </video>
-
-      {/* Layered overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-brand/50 via-brand/25 to-surface" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 via-transparent to-transparent" />
+    <section className="relative overflow-hidden flex items-center">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-surface" />
+      <div className="absolute inset-0 bg-gradient-to-tr from-accent/5 via-transparent to-transparent" />
 
       {/* VS-style glass content panel */}
       <div className="relative z-10 w-full">
-        <div className="max-w-[90%] xl:max-w-6xl mx-auto px-4 py-12">
+        <div className="max-w-[95%] xl:max-w-6xl mx-auto px-4 py-6">
           {/* Glass panel — floating luxury card */}
-          <div className="glass-luxe rounded-sm p-8 md:p-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-brand font-serif italic tracking-[0.02em] mb-1">
+          <div className="glass-luxe rounded-sm p-5 md:p-6">
+            <h2 className="text-xl md:text-2xl font-bold text-brand font-serif italic tracking-[0.02em] mb-4">
               Encuentra tu{' '}
               <span className="text-accent not-italic">experiencia perfecta</span>
             </h2>
-            <p className="text-muted-light text-sm mb-8 tracking-[0.03em] uppercase">
-              Escribe lo que buscas, servicio, ubicación, contextura, apariencia, etc...
-            </p>
 
             <form onSubmit={handleSearch}>
               <div className="bg-surface border border-border-light focus-within:border-accent focus-within:shadow-[0_0_0_3px_rgba(175,80,113,0.08)] rounded-sm px-5 py-3 flex flex-wrap items-center gap-2 transition-all duration-300">
@@ -165,9 +150,14 @@ export function SearchBar({ initialQ = '', initialToggles = [] }: SearchBarProps
 
                 <button
                   type="submit"
-                  className="bg-accent hover:bg-accent-hover text-white px-5 py-2.5 rounded-sm text-sm font-semibold uppercase tracking-[0.1em] transition-all duration-300 hover:shadow-lg hover:shadow-accent/20 flex-shrink-0"
+                  className="text-white px-4 py-2.5 rounded-sm transition-all duration-300 hover:shadow-lg flex-shrink-0 flex items-center justify-center"
+                  style={{ backgroundColor: '#db7581' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#c5636f')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#db7581')}
                 >
-                  Buscar
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
                 </button>
               </div>
             </form>

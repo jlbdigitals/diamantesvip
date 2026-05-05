@@ -67,9 +67,9 @@ const BENEFITS = [
 
 const PLANS = [
   {
-    name: 'Básico',
-    price: 'Gratis',
-    period: '',
+    name: 'Silver',
+    price: '$200.000',
+    period: '/mes',
     features: [
       'Perfil con foto principal',
       'Descripción y servicios',
@@ -80,19 +80,30 @@ const PLANS = [
     highlighted: false,
   },
   {
-    name: 'VIP',
-    price: '$49.990',
+    name: 'Gold',
+    price: '$300.000',
     period: '/mes',
     features: [
-      'Todo lo del plan Básico',
+      'Todo lo del plan Silver',
       'Fotos ilimitadas',
       'Videos en tu perfil',
-      'Perfil destacado en portada',
-      'Sello de verificación',
+      'Perfil destacado',
       'Estadísticas de visitas',
-      'Aparece primero en búsquedas',
     ],
     highlighted: true,
+  },
+  {
+    name: 'VIP',
+    price: '$400.000',
+    period: '/mes',
+    features: [
+      'Todo lo del plan Gold',
+      'Prioridad en búsquedas',
+      'Sello de verificación',
+      'Aparece primero en portada',
+      'Soporte prioritario',
+    ],
+    highlighted: false,
   },
 ]
 
@@ -172,10 +183,13 @@ export default function AnunciatePage() {
       <section className="relative py-24 px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/20 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative animate-in">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-brand font-serif italic tracking-tight">
-            Anúnciate en{' '}
-            <span className="text-accent not-italic">Diamantes VIP</span>
-          </h1>
+          <div className="mb-6 flex justify-center">
+            <img
+              src="/anunciate1.jpeg"
+              alt="Anúnciate en Diamantes VIP"
+              className="h-auto w-full max-w-md rounded-[24px] shadow-lg"
+            />
+          </div>
           <p className="text-lg md:text-xl text-muted max-w-2xl mx-auto leading-relaxed font-light">
             El directorio de acompañantes más exclusivo de Chile. Crea tu perfil,
             sube tus fotos y conecta con clientes de alto nivel.
@@ -183,13 +197,19 @@ export default function AnunciatePage() {
           <div className="flex items-center justify-center gap-4 mt-10">
             <a
               href="#register"
-              className="bg-accent hover:bg-accent-hover text-white font-semibold px-8 py-4 rounded-sm transition-all hover:scale-105 text-sm uppercase tracking-[0.15em] hover:shadow-lg hover:shadow-accent/20"
+              className="text-white font-semibold px-8 py-4 rounded-sm transition-all hover:scale-105 text-sm uppercase tracking-[0.15em] hover:shadow-lg"
+              style={{ backgroundColor: '#db7581' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#c5636f')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#db7581')}
             >
               Crear mi perfil gratis
             </a>
             <a
               href="#plans"
-              className="glass text-brand hover:text-accent hover:border-accent/40 font-semibold px-8 py-4 rounded-sm transition-all text-sm uppercase tracking-[0.15em]"
+              className="font-semibold px-8 py-4 rounded-sm transition-all hover:scale-105 text-sm uppercase tracking-[0.15em]"
+              style={{ backgroundColor: '#f9dade', color: '#727272' }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#f2d0d8')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#f9dade')}
             >
               Ver planes
             </a>
@@ -197,47 +217,27 @@ export default function AnunciatePage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="relative py-16 px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="glass-luxe rounded-sm p-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              {[
-                { value: '+10.000', label: 'Visitas mensuales' },
-                { value: '8', label: 'Ciudades de Chile' },
-                { value: '24/7', label: 'Disponible siempre' },
-                { value: '+100', label: 'Perfiles activos' },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-3xl font-bold text-accent font-serif">{stat.value}</div>
-                  <div className="text-xs text-muted-light mt-1 uppercase tracking-[0.1em]">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Benefits */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4" style={{ backgroundColor: '#f9dade' }}>
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-3 font-serif text-brand italic">
+          <h2 className="text-3xl font-bold text-center mb-3 font-serif italic" style={{ color: '#727272' }}>
             ¿Por qué anunciarte con nosotros?
           </h2>
-          <p className="text-muted-light text-center mb-14 max-w-xl mx-auto text-sm uppercase tracking-[0.08em]">
+          <p className="text-center mb-14 max-w-xl mx-auto text-sm uppercase tracking-[0.08em]" style={{ color: '#8c8484' }}>
             Todo lo que necesitas para destacar
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 stagger">
             {BENEFITS.map((benefit) => (
               <div
                 key={benefit.title}
-                className="glass-float rounded-sm p-6 group"
+                className="bg-white/80 backdrop-blur-sm rounded-[24px] p-6 shadow-sm group"
               >
-                <div className="w-9 h-9 bg-accent/10 rounded-sm flex items-center justify-center text-accent mb-4 group-hover:bg-accent group-hover:text-white transition-all duration-400">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center mb-4 transition-all duration-400"
+                  style={{ backgroundColor: '#f9dade', color: '#db7581' }}>
                   {benefit.icon}
                 </div>
-                <h3 className="text-base font-semibold text-brand mb-2 font-serif">{benefit.title}</h3>
-                <p className="text-muted-light text-sm leading-relaxed">{benefit.description}</p>
+                <h3 className="text-base font-semibold mb-2 font-serif" style={{ color: '#727272' }}>{benefit.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: '#8c8484' }}>{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -251,32 +251,33 @@ export default function AnunciatePage() {
           <p className="text-muted-light text-center mb-14 text-sm uppercase tracking-[0.08em]">
             Elige el que mejor se adapte a ti
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto items-start">
             {PLANS.map((plan) => (
               <div
                 key={plan.name}
-                className={`rounded-sm p-8 transition-all duration-400 ${
+                className={`rounded-[24px] p-6 transition-all duration-400 ${
                   plan.highlighted
-                    ? 'glass-luxe border-accent/20 relative glow-pulse'
-                    : 'glass border-border'
+                    ? 'bg-white shadow-xl relative scale-105 z-10 border-2 border-[#db7581]/30'
+                    : 'bg-white/80 backdrop-blur-sm shadow-sm border border-white/50'
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-[0.12em] shadow-lg">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-[0.12em] shadow-lg"
+                    style={{ backgroundColor: '#db7581' }}>
                     Recomendado
                   </div>
                 )}
-                <h3 className="text-xl font-bold text-brand mb-2 font-serif">{plan.name}</h3>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold text-accent font-serif">{plan.price}</span>
+                <h3 className="text-xl font-bold mb-2 font-serif text-center" style={{ color: '#727272' }}>{plan.name}</h3>
+                <div className="mb-6 text-center">
+                  <span className="text-3xl font-bold font-serif" style={{ color: '#db7581' }}>{plan.price}</span>
                   {plan.period && (
                     <span className="text-muted-light text-sm ml-1">{plan.period}</span>
                   )}
                 </div>
                 <ul className="space-y-3 mb-8">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2.5 text-sm text-muted">
-                      <svg className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <li key={feature} className="flex items-start gap-2.5 text-sm" style={{ color: '#8c8484' }}>
+                      <svg className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: '#db7581' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       {feature}
@@ -285,11 +286,11 @@ export default function AnunciatePage() {
                 </ul>
                 <a
                   href="#register"
-                  className={`block text-center font-semibold py-3 rounded-sm transition-all text-sm uppercase tracking-[0.1em] hover:scale-[1.02] ${
-                    plan.highlighted
-                      ? 'bg-accent hover:bg-accent-hover text-white shadow-lg shadow-accent/20'
-                      : 'border border-brand/20 text-brand hover:text-accent hover:border-accent/40'
-                  }`}
+                  className="block text-center font-semibold py-3 rounded-xl transition-all text-sm uppercase tracking-[0.1em] hover:scale-[1.02]"
+                  style={plan.highlighted
+                    ? { backgroundColor: '#db7581', color: '#ffffff' }
+                    : { backgroundColor: '#f9dade', color: '#727272' }
+                  }
                 >
                   Comenzar
                 </a>
