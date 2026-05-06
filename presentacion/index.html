@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#221d1d">
+<title>Diamantes VIP — Presentación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --brand:#221d1d;
+    --accent:#af5071;
+    --accent-light:#ca6687;
+    --accent-dark:#8c3a5a;
+    --rose:#f9e2e7;
+    --rose-soft:#fdf2f5;
+    --rose-dark:#f2d0d8;
+    --surface:#f9f9f9;
+    --muted:#645d5c;
+    --muted-light:#8c8484;
+    --border:#d0c4c3;
+    --pdf-gray:#727272;
+    --pdf-rose-light:#f9dade;
+    --pdf-rose:#db7581;
+    --gold:#c5a059;
+    --silver:#8c8484;
+    --font-sans:'Public Sans',ui-sans-serif,system-ui,sans-serif;
+    --font-serif:'Cormorant Garamond',ui-serif,Georgia,serif;
+  }
+  html,body{height:100%;overflow:hidden;font-family:var(--font-sans);background:var(--brand);color:#fff;-webkit-tap-highlight-color:transparent}
+  body{overscroll-behavior:none}
+
+  /* ── Slides ── */
+  .slides{display:flex;transition:transform .55s cubic-bezier(.4,0,.2,1);height:100%;width:100%;will-change:transform}
+  .slide{min-width:100vw;height:100%;height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(24px,6vh,56px) clamp(16px,5vw,48px);position:relative;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  .slide>*{flex-shrink:0}
+
+  /* ── Deco ── */
+  .brand-strip{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--pdf-rose),var(--accent),var(--pdf-rose-light),var(--accent-light));z-index:200}
+  .bg-glow{position:absolute;border-radius:50%;filter:blur(140px);pointer-events:none}
+  .glow-1{width:clamp(200px,50vmin,500px);height:clamp(200px,50vmin,500px);background:var(--accent);opacity:.1;top:-10%;right:-10%}
+  .glow-2{width:clamp(180px,45vmin,450px);height:clamp(180px,45vmin,450px);background:var(--pdf-rose);opacity:.08;bottom:-10%;left:-10%}
+  .glow-ct{width:clamp(240px,55vmin,550px);height:clamp(240px,55vmin,550px);background:var(--accent);opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+
+  /* ── Navigation ── */
+  .nav-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;display:flex;justify-content:center;align-items:center;gap:clamp(14px,4vw,24px);padding:clamp(12px,3vh,24px);padding-bottom:calc(clamp(12px,3vh,24px) + env(safe-area-inset-bottom,0px))}
+  .nav-btn{width:clamp(40px,10vw,48px);height:clamp(40px,10vw,48px);border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-size:clamp(18px,4vw,22px);cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all .2s ease;-webkit-tap-highlight-color:transparent;user-select:none}
+  .nav-btn:active{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.5);transform:scale(.94)}
+  .nav-btn:disabled{opacity:.2;pointer-events:none}
+  .nav-dots{display:flex;align-items:center;gap:clamp(6px,2vw,10px)}
+  .nav-dot{width:clamp(6px,1.8vw,8px);height:clamp(6px,1.8vw,8px);border-radius:50%;background:rgba(255,255,255,.25);border:none;cursor:pointer;transition:all .3s ease;padding:4px;-webkit-tap-highlight-color:transparent}
+  .nav-dot.active{background:var(--pdf-rose);width:clamp(20px,5vw,28px);border-radius:4px}
+  .slide-counter{position:fixed;top:clamp(14px,3vh,28px);right:clamp(14px,4vw,32px);z-index:200;font-family:var(--font-serif);font-size:clamp(11px,2.5vw,14px);font-weight:500;color:rgba(255,255,255,.4);letter-spacing:.15em;pointer-events:none}
+
+  /* ── Typography ── */
+  .h1{font-family:var(--font-serif);font-size:clamp(1.6rem,5vw,3.2rem);font-weight:700;line-height:1.15;letter-spacing:-.01em;text-align:center}
+  .h2{font-family:var(--font-serif);font-size:clamp(1.3rem,4vw,2.4rem);font-weight:600;line-height:1.2;text-align:center}
+  .h3{font-family:var(--font-serif);font-size:clamp(1rem,3vw,1.5rem);font-weight:500;line-height:1.25;text-align:center;color:var(--pdf-rose-light)}
+  .body{font-size:clamp(.85rem,2.2vw,1.1rem);color:rgba(255,255,255,.6);line-height:1.55;text-align:center;max-width:420px}
+  .body-sm{font-size:clamp(.75rem,1.8vw,.9rem);color:rgba(255,255,255,.45);line-height:1.5;text-align:center;max-width:380px}
+  .gradient-text{background:linear-gradient(135deg,var(--pdf-rose-light),var(--pdf-rose),var(--accent-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+  /* ── Phone Mockup ── */
+  .phone-wrap{position:relative;margin:clamp(10px,2vh,24px) auto}
+  .phone-frame{width:clamp(160px,38vw,220px);aspect-ratio:9/19;border-radius:clamp(18px,4vw,28px);border:2.5px solid rgba(255,255,255,.15);background:var(--brand);overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.06);position:relative;margin:0 auto}
+  .phone-frame img{width:100%;height:100%;object-fit:cover;display:block}
+  .phone-notch{position:absolute;top:clamp(8px,2vw,12px);left:50%;transform:translateX(-50%);width:clamp(60px,20vw,90px);height:clamp(16px,4vw,22px);background:var(--brand);border-radius:20px;z-index:2}
+
+  /* ── Color Palette ── */
+  .palette-row{display:flex;gap:clamp(12px,3vw,20px);flex-wrap:wrap;justify-content:center;margin-top:clamp(8px,1.5vh,16px)}
+  .swatch{display:flex;flex-direction:column;align-items:center;gap:clamp(6px,1.5vh,10px)}
+  .swatch-box{width:clamp(68px,16vw,120px);height:clamp(68px,16vw,120px);border-radius:16px;box-shadow:0 6px 24px rgba(0,0,0,.3)}
+  .swatch-label{font-size:clamp(.7rem,1.6vw,.82rem);font-weight:500;color:rgba(255,255,255,.5);letter-spacing:.03em}
+
+  /* ── Plans ── */
+  .plans-grid{display:flex;gap:clamp(10px,2.5vw,18px);flex-wrap:wrap;justify-content:center;width:100%;max-width:800px;margin-top:clamp(8px,1.5vh,16px)}
+  .plan{flex:1 1 clamp(200px,28vw,280px);max-width:300px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:clamp(20px,4vh,32px) clamp(16px,4vw,24px);text-align:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .plan.vip{border-color:rgba(175,80,113,.3);background:rgba(175,80,113,.04)}
+  .plan.gold{border-color:rgba(197,96,89,.2);background:rgba(197,96,89,.03)}
+  .plan-tag{display:inline-block;padding:3px 12px;border-radius:50px;font-size:clamp(.65rem,1.5vw,.75rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+  .plan-tag.vip{background:rgba(175,80,113,.18);color:var(--accent-light)}
+  .plan-tag.gold{background:rgba(197,150,89,.15);color:var(--gold)}
+  .plan-tag.silver{background:rgba(140,132,132,.12);color:var(--silver)}
+  .plan-price{font-family:var(--font-serif);font-size:clamp(1.6rem,3.5vw,2rem);font-weight:700;margin:8px 0 14px}
+  .plan-price em{font-size:clamp(.7rem,1.5vw,.85rem);font-weight:400;font-style:normal;color:rgba(255,255,255,.4)}
+  .plan-feats{list-style:none;text-align:left;font-size:clamp(.7rem,1.5vw,.82rem);color:rgba(255,255,255,.55);line-height:1.9}
+  .plan-feats li::before{content:'◆ ';color:var(--accent);font-size:.5rem;vertical-align:middle;margin-right:2px}
+
+  /* ── Page Sections Grid ── */
+  .pages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(120px,28vw,160px),1fr));gap:clamp(10px,2.5vw,20px);width:100%;max-width:600px;margin-top:clamp(8px,1.5vh,16px)}
+  .page-card{text-align:center;padding:clamp(16px,3vh,24px) clamp(10px,3vw,16px);background:rgba(255,255,255,.025);border-radius:12px;border:1px solid rgba(255,255,255,.05)}
+  .page-card .icon{font-size:clamp(1.6rem,4vw,2.2rem);margin-bottom:8px}
+  .page-card h4{font-family:var(--font-serif);font-size:clamp(.85rem,2vw,1.05rem);color:var(--pdf-rose-light);margin-bottom:4px}
+  .page-card p{font-size:clamp(.65rem,1.4vw,.8rem);color:rgba(255,255,255,.35)}
+
+  /* ── Structure Cards ── */
+  .struct-row{display:flex;gap:clamp(14px,3vw,28px);flex-wrap:wrap;justify-content:center;width:100%;margin-top:clamp(8px,1.5vh,16px)}
+  .struct-col{flex:1 1 clamp(240px,35vw,340px);max-width:380px}
+  .struct-box{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:clamp(18px,3vh,28px) clamp(14px,3vw,22px);text-align:left}
+  .struct-box h4{font-family:var(--font-serif);font-size:clamp(.95rem,2.2vw,1.2rem);color:var(--pdf-rose-light);margin-bottom:10px}
+  .struct-box ul{list-style:none;font-size:clamp(.7rem,1.5vw,.85rem);color:rgba(255,255,255,.5);line-height:1.9}
+  .struct-box ul li::before{content:'— ';color:var(--muted-light)}
+
+  /* ── Wireframe mock ── */
+  .wire-box{display:flex;flex-direction:column;gap:6px;width:100%}
+  .wire-row{background:rgba(255,255,255,.04);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:clamp(.55rem,1.2vw,.7rem);color:rgba(255,255,255,.3)}
+  .wire-accent{background:rgba(175,80,113,.08);border:1px dashed rgba(175,80,113,.2);color:var(--accent-light)}
+  .wire-accent-solid{background:rgba(175,80,113,.14);border:1px solid rgba(175,80,113,.25);color:var(--accent-light)}
+  .wire-silver{background:rgba(192,192,192,.05);border:1px solid rgba(192,192,192,.12);color:var(--silver)}
+
+  /* ── CTA Button ── */
+  .cta-btn{display:inline-flex;align-items:center;gap:8px;padding:clamp(12px,3vh,16px) clamp(28px,6vw,40px);border-radius:50px;font-family:var(--font-sans);font-size:clamp(.85rem,2vw,1rem);font-weight:600;letter-spacing:.03em;text-decoration:none;cursor:pointer;transition:all .25s ease;-webkit-tap-highlight-color:transparent;border:none;margin-top:clamp(16px,3vh,28px)}
+  .cta-primary{background:var(--accent);color:#fff;box-shadow:0 8px 28px rgba(175,80,113,.35)}
+  .cta-primary:active{transform:scale(.96);background:var(--accent-dark);box-shadow:0 4px 16px rgba(175,80,113,.25)}
+  .cta-outline{border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#fff}
+  .cta-outline:active{transform:scale(.96);background:rgba(255,255,255,.1)}
+
+  /* ── Contact row ── */
+  .contact-row{display:flex;gap:clamp(10px,3vw,16px);flex-wrap:wrap;justify-content:center;margin-top:clamp(10px,2vh,16px)}
+
+  /* ── Scroll hint ── */
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  .scroll-hint{position:absolute;bottom:clamp(80px,16vh,100px);left:50%;transform:translateX(-50%);animation:bounce 2s ease infinite;pointer-events:none;opacity:.5;font-size:clamp(14px,3vw,18px)}
+  @media(min-width:768px){.scroll-hint{display:none}}
+
+  /* ── Logo watermark ── */
+  .watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none;width:clamp(120px,30vw,200px);height:auto}
+</style>
+</head>
+<body>
+
+<div class="brand-strip"></div>
+<div class="slide-counter"><span id="cur">1</span> / <span id="tot">9</span></div>
+
+<div class="slides" id="slides">
+
+<!-- ═══ SLIDE 1 — COVER ═══ -->
+<section class="slide" style="background:radial-gradient(ellipse at 50% 80%,rgba(175,80,113,.18) 0%,transparent 60%),var(--brand)">
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+  <img src="images/img-017.jpg" alt="" style="width:clamp(70px,20vw,110px);height:auto;margin-bottom:clamp(8px,2vh,16px);opacity:.8;border-radius:20px">
+  <h1 class="h1 gradient-text" style="font-size:clamp(2rem,6.5vw,3.8rem);margin-bottom:8px">Diamantes VIP</h1>
+  <p class="h3" style="font-weight:400;font-style:italic;max-width:600px;margin-top:clamp(6px,1.5vh,12px);line-height:1.35">Directorio de scort y acompañantes en Chile</p>
+  <div style="display:flex;gap:12px;margin-top:clamp(12px,2.5vh,20px);flex-wrap:wrap;justify-content:center">
+    <span style="padding:6px 18px;border-radius:50px;font-size:clamp(.65rem,1.5vw,.78rem);font-weight:600;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);letter-spacing:.04em">PERFILES VERIFICADOS</span>
+    <span style="padding:6px 18px;border-radius:50px;font-size:clamp(.65rem,1.5vw,.78rem);font-weight:600;border:1px solid rgba(175,80,113,.25);background:rgba(175,80,113,.08);color:var(--accent-light);letter-spacing:.04em">MOBILE FIRST</span>
+  </div>
+  <div class="scroll-hint">↓ desliza</div>
+</section>
+
+<!-- ═══ SLIDE 2 — PALETA ═══ -->
+<section class="slide" style="background:var(--brand)">
+  <div class="bg-glow glow-ct"></div>
+  <h2 class="h2">Paleta de Color</h2>
+  <p class="h3">Identidad visual</p>
+  <div class="palette-row">
+    <div class="swatch"><div class="swatch-box" style="background:#221d1d"></div><span class="swatch-label">#221d1d · Brand</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#af5071"></div><span class="swatch-label">#af5071 · Accent</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#f9dade"></div><span class="swatch-label">#f9dade · Rose Light</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#db7581"></div><span class="swatch-label">#db7581 · Rose</span></div>
+    <div class="swatch"><div class="swatch-box" style="background:#727272"></div><span class="swatch-label">#727272 · Gray</span></div>
+  </div>
+  <p class="body-sm" style="margin-top:clamp(14px,2.5vh,20px)">Paleta elegante y femenina: fondo oscuro con acentos rosados y grises neutros que transmiten sofisticación.</p>
+</section>
+
+<!-- ═══ SLIDE 3 — MOBILE FIRST ═══ -->
+<section class="slide" style="background:radial-gradient(ellipse at 50% 30%,rgba(175,80,113,.12) 0%,transparent 60%),var(--brand)">
+  <div class="bg-glow glow-2"></div>
+  <h2 class="h2">Diseñado para Smartphone</h2>
+  <p class="h3">Experiencia 100% mobile</p>
+  <div class="phone-wrap">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <img src="images/img-008.jpg" alt="Diamantes VIP en smartphone">
+    </div>
+  </div>
+  <p class="body">Plataforma optimizada para dispositivos móviles. Navegación táctil intuitiva, carga ultrarrápida y diseño responsive adaptable a cualquier pantalla.</p>
+  <div class="badge-row" style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;justify-content:center">
+    <span style="padding:7px 18px;border-radius:50px;font-size:clamp(.7rem,1.5vw,.82rem);font-weight:600;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)">📱 iOS</span>
+    <span style="padding:7px 18px;border-radius:50px;font-size:clamp(.7rem,1.5vw,.82rem);font-weight:600;border:1px solid rgba(175,80,113,.25);background:rgba(175,80,113,.08);color:var(--accent-light)">🤖 Android</span>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 4 — INTRO + FILTROS ═══ -->
+<section class="slide" style="background:var(--brand)">
+  <div class="bg-glow glow-1"></div>
+  <h2 class="h2">Página de Introducción</h2>
+  <p class="h3">Filtros para cada usuario</p>
+  <div style="display:flex;gap:clamp(12px,3vw,20px);align-items:center;margin-top:clamp(10px,2vh,18px);flex-wrap:wrap;justify-content:center">
+    <div class="phone-frame" style="border-color:rgba(175,80,113,.25)">
+      <div class="phone-notch"></div>
+      <img src="images/img-008.jpg" alt="Vista cliente">
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:clamp(.55rem,1.2vw,.7rem);font-weight:600;color:var(--accent-light);background:rgba(0,0,0,.6);padding:3px 10px;border-radius:20px">CLIENTE</div>
+    </div>
+    <div class="phone-frame" style="border-color:rgba(255,255,255,.08)">
+      <div class="phone-notch"></div>
+      <img src="images/img-009.jpg" alt="Vista anunciante">
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:clamp(.55rem,1.2vw,.7rem);font-weight:600;color:#fff;background:rgba(0,0,0,.6);padding:3px 10px;border-radius:20px">ANUNCIANTE</div>
+    </div>
+  </div>
+  <p class="body" style="margin-top:clamp(10px,2vh,16px)">Búsqueda por ciudad, servicios y atributos para clientes. Panel de administración con fotos, videos e historias para anunciantes.</p>
+</section>
+
+<!-- ═══ SLIDE 5 — PÁGINAS ═══ -->
+<section class="slide" style="background:radial-gradient(ellipse at 50% 80%,rgba(175,80,113,.08) 0%,transparent 60%),var(--brand)">
+  <div class="bg-glow glow-1"></div>
+  <h2 class="h2">Header Promocional</h2>
+  <p class="h3">Secciones de la plataforma</p>
+  <img src="images/img-019.jpg" alt="Header promocional" style="width:100%;max-width:500px;height:auto;border-radius:10px;margin:clamp(8px,1.5vh,16px) auto;opacity:.85">
+  <div class="pages-grid">
+    <div class="page-card"><div class="icon">🏠</div><h4>Home</h4><p>Historias destacadas</p></div>
+    <div class="page-card"><div class="icon">🔍</div><h4>Buscador</h4><p>Filtros por ciudad</p></div>
+    <div class="page-card"><div class="icon">👤</div><h4>Perfil</h4><p>Fotos y contacto</p></div>
+    <div class="page-card"><div class="icon">⭐</div><h4>Planes</h4><p>VIP · Gold · Silver</p></div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 6 — PLANES ═══ -->
+<section class="slide" style="background:var(--brand)">
+  <div class="bg-glow glow-ct"></div>
+  <h2 class="h2">Planes de Membresía</h2>
+  <p class="h3">Valores por 30 días</p>
+  <div class="plans-grid">
+    <div class="plan vip">
+      <span class="plan-tag vip">VIP</span>
+      <div class="plan-price">$449.990<em> /mes</em></div>
+      <ul class="plan-feats">
+        <li>Hasta 30 fotos en perfil</li>
+        <li>Hasta 15 videos en perfil</li>
+        <li>3 historias diarias en home</li>
+        <li>Perfil con foto + video en home</li>
+      </ul>
+    </div>
+    <div class="plan gold">
+      <span class="plan-tag gold">Gold</span>
+      <div class="plan-price">$249.990<em> /mes</em></div>
+      <ul class="plan-feats">
+        <li>Hasta 20 fotos en perfil</li>
+        <li>Hasta 7 videos en perfil</li>
+        <li>1 historia diaria en home</li>
+        <li>Perfil con foto</li>
+      </ul>
+    </div>
+    <div class="plan silver">
+      <span class="plan-tag silver">Silver</span>
+      <div class="plan-price">$99.990<em> /mes</em></div>
+      <ul class="plan-feats">
+        <li>Hasta 10 fotos en perfil</li>
+        <li>Hasta 3 videos en perfil</li>
+        <li>Perfil con foto</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 7 — BUSCADOR + HISTORIAS ═══ -->
+<section class="slide" style="background:radial-gradient(ellipse at 30% 60%,rgba(175,80,113,.1) 0%,transparent 60%),var(--brand)">
+  <div class="bg-glow glow-2"></div>
+  <h2 class="h2">Buscador &amp; Historias</h2>
+  <p class="h3">Contenido dinámico en home</p>
+  <div style="display:flex;gap:clamp(12px,3vw,24px);align-items:flex-start;margin-top:clamp(10px,2vh,18px);flex-wrap:wrap;justify-content:center">
+    <div class="phone-frame" style="border-color:rgba(175,80,113,.25)">
+      <div class="phone-notch"></div>
+      <img src="images/img-024.jpg" alt="Historias en home">
+    </div>
+    <div style="display:flex;flex-direction:column;gap:clamp(8px,1.5vh,14px);max-width:240px;justify-content:center">
+      <div style="background:rgba(175,80,113,.06);border:1px solid rgba(175,80,113,.18);border-radius:12px;padding:clamp(12px,2vh,18px) clamp(10px,3vw,16px)">
+        <h4 style="font-family:var(--font-serif);font-size:clamp(.9rem,2vw,1.1rem);color:var(--accent-light);margin-bottom:6px">VIP</h4>
+        <p style="font-size:clamp(.7rem,1.5vw,.82rem);color:rgba(255,255,255,.5)">3 historias diarias · Video en home · Máxima visibilidad</p>
+      </div>
+      <div style="background:rgba(197,150,89,.05);border:1px solid rgba(197,150,89,.12);border-radius:12px;padding:clamp(12px,2vh,18px) clamp(10px,3vw,16px)">
+        <h4 style="font-family:var(--font-serif);font-size:clamp(.9rem,2vw,1.1rem);color:var(--gold);margin-bottom:6px">Gold</h4>
+        <p style="font-size:clamp(.7rem,1.5vw,.82rem);color:rgba(255,255,255,.5)">1 historia diaria · Foto en home · Buena visibilidad</p>
+      </div>
+    </div>
+  </div>
+  <p class="body-sm" style="margin-top:clamp(8px,1.5vh,14px)">Las historias aparecen en el carrusel superior del home para máxima exposición.</p>
+</section>
+
+<!-- ═══ SLIDE 8 — ESTRUCTURA ═══ -->
+<section class="slide" style="background:var(--brand)">
+  <div class="bg-glow glow-1"></div>
+  <h2 class="h2">Estructura de Páginas</h2>
+  <p class="h3">Home · Perfil</p>
+  <div class="struct-row">
+    <!-- Home wireframe -->
+    <div class="struct-col">
+      <div class="struct-box" style="margin-bottom:clamp(8px,1.5vh,12px)">
+        <h4>🏠 Página de Inicio</h4>
+        <div class="wire-box">
+          <div class="wire-row wire-accent" style="height:clamp(36px,7vh,52px)">Historias</div>
+          <div class="wire-row" style="height:clamp(34px,6.5vh,48px)">Buscador</div>
+          <div class="wire-row" style="height:clamp(50px,9vh,70px)">Perfiles destacados</div>
+          <div class="wire-row wire-silver" style="height:clamp(28px,5vh,36px)">Footer</div>
+        </div>
+      </div>
+      <div class="phone-frame" style="border-color:rgba(255,255,255,.06);max-width:160px">
+        <div class="phone-notch"></div>
+        <img src="images/img-024.jpg" alt="Home">
+      </div>
+    </div>
+    <!-- Profile wireframe -->
+    <div class="struct-col">
+      <div class="struct-box" style="margin-bottom:clamp(8px,1.5vh,12px)">
+        <h4>👤 Página de Perfil</h4>
+        <div class="wire-box">
+          <div class="wire-row wire-accent-solid" style="height:clamp(44px,8vh,64px)">Foto principal</div>
+          <div class="wire-row" style="height:clamp(22px,3.5vh,28px)">Historias</div>
+          <div class="wire-row" style="height:clamp(18px,3vh,24px)">Nombre · Ubicación</div>
+          <div class="wire-row wire-accent" style="height:clamp(16px,2.5vh,20px);font-size:.6rem">Disponibilidad</div>
+          <div class="wire-row" style="height:clamp(28px,5vh,40px)">Servicios / Atributos</div>
+          <div class="wire-row" style="height:clamp(28px,5vh,40px)">Horarios</div>
+          <div class="wire-row" style="height:clamp(28px,5vh,40px)">Sobre mí</div>
+          <div class="wire-row wire-accent-solid" style="height:clamp(28px,5vh,36px)">Contacto</div>
+        </div>
+      </div>
+      <div class="phone-frame" style="border-color:rgba(255,255,255,.06);max-width:160px">
+        <div class="phone-notch"></div>
+        <img src="images/img-026.jpg" alt="Perfil">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 9 — CTA FINAL ═══ -->
+<section class="slide" style="background:radial-gradient(ellipse at 50% 50%,rgba(175,80,113,.15) 0%,transparent 65%),var(--brand)">
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+  <img src="images/img-017.jpg" alt="Diamantes VIP" style="width:clamp(60px,16vw,90px);height:auto;margin-bottom:clamp(10px,2vh,18px);opacity:.8;border-radius:16px">
+  <h2 class="h1 gradient-text">Diamantes VIP</h2>
+  <p class="h3" style="margin-top:clamp(4px,1vh,8px);max-width:500px">La plataforma líder de scort y acompañantes en Chile</p>
+  <p class="body" style="margin-top:clamp(6px,1.5vh,12px)">Perfiles verificados · Búsqueda por ciudad · Experiencia mobile-first</p>
+
+  <a href="/age-verification" class="cta-btn cta-primary">
+    ✦ Visitar el sitio
+  </a>
+
+  <div class="contact-row">
+    <a href="/anunciate" class="cta-btn cta-outline" style="font-size:clamp(.7rem,1.5vw,.85rem);padding:clamp(8px,2vh,12px) clamp(18px,4vw,28px)">Anúnciate</a>
+    <a href="https://wa.me/56932508878" target="_blank" class="cta-btn cta-outline" style="font-size:clamp(.7rem,1.5vw,.85rem);padding:clamp(8px,2vh,12px) clamp(18px,4vw,28px)">WhatsApp</a>
+  </div>
+  <p class="body-sm" style="margin-top:clamp(14px,3vh,22px)">diamantesvip.cl</p>
+</section>
+
+</div>
+
+<!-- Navigation -->
+<nav class="nav-bar">
+  <button class="nav-btn" id="prev" aria-label="Anterior">←</button>
+  <div class="nav-dots" id="dots"></div>
+  <button class="nav-btn" id="next" aria-label="Siguiente">→</button>
+</nav>
+
+<script>
+(function(){
+  var slides=document.getElementById('slides'),all=slides.querySelectorAll('.slide'),total=all.length,cur=0;
+  var prev=document.getElementById('prev'),next=document.getElementById('next'),dotsEl=document.getElementById('dots');
+  var curEl=document.getElementById('cur'),totEl=document.getElementById('tot');
+  totEl.textContent=total;
+
+  // Build dots
+  for(var i=0;i<total;i++){
+    var d=document.createElement('button');
+    d.className='nav-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Diapositiva '+(i+1));
+    d.addEventListener('click',(function(idx){return function(){go(idx)};})(i));
+    dotsEl.appendChild(d);
+  }
+
+  function up(){
+    slides.style.transform='translateX(-'+(cur*100)+'vw)';
+    curEl.textContent=cur+1;
+    prev.disabled=cur===0;
+    next.disabled=cur===total-1;
+    var dots=dotsEl.querySelectorAll('.nav-dot');
+    for(var i=0;i<dots.length;i++) dots[i].className='nav-dot'+(i===cur?' active':'');
+  }
+
+  function go(i){if(i>=0&&i<total){cur=i;up()}}
+  function nxt(){go(cur+1)}
+  function prv(){go(cur-1)}
+
+  prev.addEventListener('click',prv);
+  next.addEventListener('click',nxt);
+
+  // Keyboard
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();nxt()}
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();prv()}
+    if(e.key==='Home'){e.preventDefault();go(0)}
+    if(e.key==='End'){e.preventDefault();go(total-1)}
+  });
+
+  // Touch swipe
+  var tx=0,ty=0;
+  document.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=tx-e.changedTouches[0].clientX,dy=ty-e.changedTouches[0].clientY;
+    if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40) dx>0?nxt():prv();
+  });
+
+  up();
+})();
+</script>
+</body>
+</html>
