@@ -16,7 +16,7 @@ RUN mkdir -p prisma/data && \
     DATABASE_URL="file:/app/prisma/data/dev.db" node scripts/seed-safe.js && \
     npm run build
 
-# bust cache so mv wrapper always runs: v2
+# bust cache so mv wrapper always runs: v3
 FROM node:20-alpine AS runner
 WORKDIR /app
 RUN apk add --no-cache openssl
