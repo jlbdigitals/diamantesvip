@@ -159,13 +159,23 @@ export function ShortsRow({ shorts }: ShortsRowProps) {
   if (shorts.length === 0) return null
 
   return (
-    <div className="pt-10 pb-6 hidden md:block">
-      <div className="flex items-center gap-3 mb-4">
+    <div className="pt-10 pb-6">
+      <div className="flex items-center gap-3 mb-4 px-4 md:px-0">
         <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
         <h2 className="text-xl md:text-2xl font-bold text-brand font-serif italic">Últimos Shorts</h2>
       </div>
 
-      <div className="relative" style={{ width: containerWidth }}>
+      {/* Mobile: scrollable row */}
+      <div className="md:hidden px-4">
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+          {shorts.map((short) => (
+            <ShortCard key={short.id} short={short} isActive={false} />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop: carousel with arrows */}
+      <div className="hidden md:block relative" style={{ width: containerWidth }}>
         <button onClick={prev} className="absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full glass shadow-lg border border-border flex items-center justify-center hover:border-accent/50 transition-all">
           <svg className="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
         </button>
