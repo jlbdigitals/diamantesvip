@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-surface flex flex-col">
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-20">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
         {/* Logo */}
         <div className="mb-10">
           <img

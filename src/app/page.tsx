@@ -3,8 +3,15 @@ import { EscortCard } from '@/components/EscortCard'
 import { SearchBar } from '@/components/SearchBar'
 import { StoriesRow } from '@/components/StoriesRow'
 import { ShortsRow } from '@/components/ShortsRow'
+import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
+
+export const metadata: Metadata = {
+  title: 'Scort y acompanantes en Chile',
+  description:
+    'Explora perfiles de scort y acompanantes en Chile por ciudad, precio y disponibilidad en Diamantes VIP.',
+}
 
 interface HomeProps {
   searchParams: Promise<{
@@ -111,9 +118,27 @@ export default async function Home({ searchParams }: HomeProps) {
   const vipEscorts = escorts.filter((e) => e.tier === 'VIP')
   const goldEscorts = escorts.filter((e) => e.tier === 'Gold')
   const silverEscorts = escorts.filter((e) => e.tier === 'Silver')
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Diamantes VIP',
+    url: 'https://diamantesvip.cl',
+    description:
+      'Directorio de scort y acompanantes en Chile con perfiles verificados y busqueda por ciudad.',
+    inLanguage: 'es-CL',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://diamantesvip.cl/?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
+  }
 
   return (
     <div className="min-h-screen relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-surface" />
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-accent/3 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2" />
@@ -122,6 +147,28 @@ export default async function Home({ searchParams }: HomeProps) {
       </div>
 
       <div className="relative">
+        <section className="max-w-7xl mx-auto px-4 pt-8 md:pt-10">
+          <div className="glass-card rounded-sm p-6 md:p-8">
+            <h1 className="text-3xl md:text-4xl font-serif italic text-brand leading-tight">
+              Scort y acompanante en Chile: encuentra perfiles verificados
+            </h1>
+            <p className="text-muted mt-3 max-w-3xl">
+              Explora el directorio de scort y acompanantes por ciudad, tipo de servicio y disponibilidad. Publicamos perfiles activos con filtros rapidos para una busqueda mas precisa.
+            </p>
+            <nav aria-label="Busquedas populares" className="mt-4 flex flex-wrap gap-2">
+              <a href="/?q=santiago" className="text-xs px-3 py-1.5 rounded-full border border-border-light text-muted hover:text-accent hover:border-accent/50 transition-colors">
+                Scort en Santiago
+              </a>
+              <a href="/?q=vina%20del%20mar" className="text-xs px-3 py-1.5 rounded-full border border-border-light text-muted hover:text-accent hover:border-accent/50 transition-colors">
+                Acompanante en Vina del Mar
+              </a>
+              <a href="/?q=concepcion" className="text-xs px-3 py-1.5 rounded-full border border-border-light text-muted hover:text-accent hover:border-accent/50 transition-colors">
+                Escorts en Concepcion
+              </a>
+            </nav>
+          </div>
+        </section>
+
         <SearchBar initialQ={params.q || ''} initialToggles={toggleKeys} />
 
         <StoriesRow escorts={storyEscorts} />

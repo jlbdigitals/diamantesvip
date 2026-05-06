@@ -183,6 +183,9 @@ export default function AnunciatePage() {
       <section className="relative py-24 px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/20 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative animate-in">
+          <h1 className="text-4xl md:text-5xl font-bold text-brand font-serif italic mb-6">
+            Anúnciate
+          </h1>
           <div className="mb-6 flex justify-center">
             <img
               src="/anunciate1.jpeg"

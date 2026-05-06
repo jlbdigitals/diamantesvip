@@ -20,9 +20,38 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: "Diamantes VIP — Acompañantes en Chile",
-  description: "Directorio de acompañantes exclusivas en Chile",
+  title: {
+    default: "Diamantes VIP - Acompanantes y scort en Chile",
+    template: "%s | Diamantes VIP",
+  },
+  description:
+    "Directorio de acompanantes y scort en Chile. Encuentra perfiles verificados, ciudades y servicios en Diamantes VIP.",
+  keywords: [
+    "scort",
+    "acompanante",
+    "acompanantes",
+    "escort",
+    "escort chile",
+    "acompanantes chile",
+    "diamantes vip",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Diamantes VIP - Acompanantes y scort en Chile",
+    description:
+      "Directorio de acompanantes y scort en Chile con perfiles verificados y busqueda por ciudad.",
+    url: "/",
+    siteName: "Diamantes VIP",
+    locale: "es_CL",
+    type: "website",
+  },
   manifest: "/manifest.json",
+  robots: {
+    index: true,
+    follow: true,
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
