@@ -26,10 +26,11 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/node_modules/bcryptjs ./node_modules/bcryptjs
 COPY --from=builder /app/scripts/seed-safe.js ./scripts/seed-safe.js
 RUN mkdir -p prisma/data public/uploads && chown -R nextjs:nodejs prisma/data public/uploads
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
-CMD ["sh", "-c", "npx prisma db push --skip-generate && node scripts/seed-safe.js && node server.js"]
+CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push && node scripts/seed-safe.js && node server.js"]
