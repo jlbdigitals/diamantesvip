@@ -25,10 +25,11 @@ function ShortCard({ short, isActive }: { short: Short; isActive: boolean }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
   const [playing, setPlaying] = useState(false)
+  const [videoError, setVideoError] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current
-    if (!video) return
+    if (!video || videoError) return
     if (isActive) {
       video.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
     } else {
@@ -36,18 +37,69 @@ function ShortCard({ short, isActive }: { short: Short; isActive: boolean }) {
       video.currentTime = 0
       setPlaying(false)
     }
-  }, [isActive])
+  }, [isActive, videoError])
+
+  const handlePlayClick = () => {
+    const video = videoRef.current
+    if (!video) return
+    if (playing) {
+      video.pause()
+      setPlaying(false)
+    } else {
+      video.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
+    }
+  }
+
+  const posterUrl = short.thumbnail || short.escortPhoto || undefined
 
   return (
     <div className="relative aspect-[9/16] flex-shrink-0 rounded-sm overflow-hidden bg-surface-container border border-border group" style={{ width: CARD_WIDTH }}>
-      <video ref={videoRef} src={short.url} poster={short.thumbnail || short.escortPhoto || undefined} muted={muted} loop playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" />
+      {!videoError ? (
+        <video
+          ref={videoRef}
+          src={short.url}
+          poster={posterUrl}
+          muted={muted}
+          loop
+          playsInline
+          preload="metadata"
+          crossOrigin="anonymous"
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={() => setVideoError(true)}
+        />
+      ) : null}
+
+      {/* Fallback poster / background */}
+      {(videoError || !playing) && posterUrl && (
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${posterUrl})` }}
+        />
+      )}
+
+      {/* Play / Pause overlay */}
+      <button
+        onClick={handlePlayClick}
+        className="absolute inset-0 z-10 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"
+      >
+        <div className="w-12 h-12 rounded-full bg-accent/90 flex items-center justify-center shadow-lg">
+          {playing ? (
+            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" /></svg>
+          ) : (
+            <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+          )}
+        </div>
+      </button>
+
+      {/* Always-visible play indicator when paused */}
       {!playing && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/10">
+        <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
           <div className="w-12 h-12 rounded-full bg-accent/90 flex items-center justify-center shadow-lg">
             <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
           </div>
         </div>
       )}
+
       <button onClick={(e) => { e.stopPropagation(); setMuted(!muted) }} className="absolute top-3 right-3 z-20 glass-dark rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
         {muted ? (
           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
