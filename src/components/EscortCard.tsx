@@ -41,7 +41,7 @@ export function EscortCard({ escort }: EscortCardProps) {
       href={`/escort/${escort.id}`}
       className="group block glass-float rounded-sm overflow-hidden"
     >
-      <div className="aspect-[3/4] relative bg-surface-container overflow-hidden">
+      <div className="aspect-[2/3] relative bg-surface-container overflow-hidden">
         {escort.mainPhoto && escort.mainPhoto.startsWith('http') ? (
           <Image
             src={escort.mainPhoto}

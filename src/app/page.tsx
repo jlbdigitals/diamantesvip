@@ -163,7 +163,7 @@ export default async function Home({ searchParams }: HomeProps) {
           ) : activeTier ? (
             <Section tier={activeTier} escorts={escorts} />
           ) : hasSearch ? (
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 stagger">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 stagger">
               {escorts.map((escort) => (
                 <EscortCard key={escort.id} escort={escort} />
               ))}
@@ -243,7 +243,7 @@ function Section({
         </h2>
         <span className="text-xs text-muted-light">({escorts.length})</span>
       </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 stagger">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1.5 stagger">
         {escorts.map((escort) => (
           <EscortCard key={escort.id} escort={escort} />
         ))}
