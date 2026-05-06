@@ -86,6 +86,7 @@ export default async function Home({ searchParams }: HomeProps) {
       nationality: true,
       verified: true,
       tier: true,
+      _count: { select: { videos: true } },
     },
   })
 
@@ -228,6 +229,7 @@ function Section({
     nationality: string | null
     verified: boolean
     tier: string
+    _count: { videos: number }
   }[]
 }) {
   const { label, color } = TIER_TITLES[tier] || { label: tier, color: '#8c8484' }

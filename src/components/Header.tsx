@@ -2,11 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 export function Header() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastScrollY = useRef(0)
 
   // Close menu on route change
   useEffect(() => {
@@ -25,6 +27,24 @@ export function Header() {
     }
   }, [menuOpen])
 
+  // Hide on scroll down, show on scroll up
+  const handleScroll = useCallback(() => {
+    const currentY = window.scrollY
+    if (currentY < 80) {
+      setHidden(false)
+    } else if (currentY > lastScrollY.current + 4) {
+      setHidden(true)
+    } else if (currentY < lastScrollY.current - 4) {
+      setHidden(false)
+    }
+    lastScrollY.current = currentY
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
   if (pathname === '/age-verification') {
     return null
   }
@@ -40,7 +60,11 @@ export function Header() {
 
   return (
     <>
-      <header className="bg-surface sticky top-0 z-50 border-b border-border/10">
+      <header
+        className={`bg-surface sticky top-0 z-50 border-b border-border/10 transition-transform duration-400 ease-out ${
+          hidden ? '-translate-y-full' : 'translate-y-0'
+        }`}
+      >
         {/* Top edge gradient accent */}
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
@@ -82,8 +106,11 @@ export function Header() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden relative z-50 flex flex-col justify-center items-center w-10 h-10 gap-1.5"
-            aria-label="Toggle menu"
+            className={`md:hidden relative flex flex-col justify-center items-center w-10 h-10 gap-1.5 transition-opacity duration-300 ${
+              menuOpen ? 'z-[70]' : 'z-50'
+            }`}
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={menuOpen}
           >
             <span
               className={`block w-6 h-0.5 transition-all duration-300 ${
