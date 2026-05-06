@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { hash } from 'bcryptjs'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const CITIES = ['Santiago', 'Valparaíso', 'Viña del Mar', 'Concepción', 'Antofagasta', 'La Serena']
 
@@ -180,17 +181,20 @@ export default function AnunciatePage() {
       </div>
 
       {/* Hero */}
-      <section className="relative py-24 px-4">
+      <section className="relative pt-12 pb-24 px-4">
         <div className="absolute inset-0 bg-gradient-to-b from-rose/20 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto text-center relative animate-in">
           <h1 className="text-4xl md:text-5xl font-bold text-brand font-serif italic mb-6">
             Anúnciate
           </h1>
           <div className="mb-6 flex justify-center">
-            <img
+            <Image
               src="/anunciate1.jpeg"
               alt="Anúnciate en Diamantes VIP"
+              width={448}
+              height={560}
               className="h-auto w-full max-w-md rounded-[24px] shadow-lg"
+              priority
             />
           </div>
           <p className="text-lg md:text-xl text-muted max-w-2xl mx-auto leading-relaxed font-light">
@@ -304,22 +308,41 @@ export default function AnunciatePage() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-14 font-serif text-brand italic">¿Cómo funciona?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <section className="py-20 px-4" style={{ backgroundColor: '#f9dade' }}>
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-3 font-serif italic" style={{ color: '#727272' }}>
+            ¿Cómo funciona?
+          </h2>
+          <p className="text-center mb-14 max-w-xl mx-auto text-sm uppercase tracking-[0.08em]" style={{ color: '#8c8484' }}>
+            Simple, rápido y sin complicaciones
+          </p>
+          <div className="space-y-4">
             {[
-              { step: '1', title: 'Regístrate', desc: 'Crea tu cuenta con email y contraseña. Gratis, toma menos de 2 minutos.' },
-              { step: '2', title: 'Completa tu perfil', desc: 'Agrega fotos, descripción, servicios, medidas y horarios.' },
-              { step: '3', title: 'Verificación', desc: 'Solicita el sello de verificación para generar más confianza.' },
-              { step: '4', title: 'Recibe contactos', desc: 'Tu perfil será visible para miles de usuarios en todo Chile.' },
-            ].map((item) => (
-              <div key={item.step} className="text-center group">
-                <div className="w-14 h-14 glass rounded-full flex items-center justify-center text-accent font-bold text-xl font-serif mx-auto mb-4 group-hover:bg-accent group-hover:text-white transition-all duration-400">
+              { step: '01', title: 'Regístrate', desc: 'Crea tu cuenta con email y contraseña. Gratis, toma menos de 2 minutos.' },
+              { step: '02', title: 'Completa tu perfil', desc: 'Agrega fotos, descripción, servicios, medidas y horarios.' },
+              { step: '03', title: 'Verificación', desc: 'Solicita el sello de verificación para generar más confianza.' },
+              { step: '04', title: 'Recibe contactos', desc: 'Tu perfil será visible para miles de usuarios en todo Chile.' },
+            ].map((item, i) => (
+              <div
+                key={item.step}
+                className="flex items-center gap-5 bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-sm group hover:shadow-md transition-all duration-400"
+                style={{ animationDelay: `${i * 100}ms` }}
+              >
+                <div
+                  className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold font-serif"
+                  style={{ backgroundColor: '#db7581', color: '#ffffff' }}
+                >
                   {item.step}
                 </div>
-                <h3 className="font-semibold text-brand mb-1.5">{item.title}</h3>
-                <p className="text-xs text-muted-light leading-relaxed">{item.desc}</p>
+                <div className="min-w-0">
+                  <h3 className="text-base font-semibold mb-0.5" style={{ color: '#727272' }}>{item.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: '#8c8484' }}>{item.desc}</p>
+                </div>
+                <div className="flex-shrink-0 ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-400">
+                  <svg className="w-5 h-5" style={{ color: '#db7581' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             ))}
           </div>

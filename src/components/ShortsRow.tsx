@@ -107,7 +107,7 @@ export function ShortsRow({ shorts }: ShortsRowProps) {
   if (shorts.length === 0) return null
 
   return (
-    <div className="pt-10 pb-6">
+    <div className="pt-10 pb-6 hidden md:block">
       <div className="flex items-center gap-3 mb-4">
         <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
         <h2 className="text-xl md:text-2xl font-bold text-brand font-serif italic">Últimos Shorts</h2>

@@ -79,7 +79,7 @@ export default function RootLayout({
         <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body className="min-h-full flex flex-col bg-surface text-foreground">
+      <body className="min-h-full flex flex-col bg-surface text-foreground overflow-x-hidden">
         <TopBar />
         <Header />
         {children}

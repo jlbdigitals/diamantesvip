@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect, useRef, useCallback } from 'react'
 
@@ -61,7 +62,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`bg-surface sticky top-0 z-50 border-b border-border/10 transition-transform duration-400 ease-out ${
+        className={`bg-surface sticky top-0 z-[70] border-b border-border/10 transition-transform duration-400 ease-out ${
           hidden ? '-translate-y-full' : 'translate-y-0'
         }`}
       >
@@ -69,11 +70,14 @@ export function Header() {
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <img
+          <Link href="/" className="flex items-center flex-shrink-0">
+            <Image
               src="/logo-extendido.jpeg"
               alt="Diamantes VIP"
+              width={160}
+              height={64}
               className="h-16 w-auto"
+              priority
             />
           </Link>
 
@@ -166,9 +170,11 @@ export function Header() {
 
             {/* Logo */}
             <div className="mb-10">
-              <img
+              <Image
                 src="/logo-cuadrado.jpeg"
                 alt="Diamantes VIP"
+                width={64}
+                height={64}
                 className="h-16 w-auto rounded-xl"
               />
             </div>

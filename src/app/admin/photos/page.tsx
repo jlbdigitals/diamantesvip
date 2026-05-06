@@ -147,6 +147,7 @@ export default function PhotoManager() {
             ref={fileInputRef}
             type="file"
             accept="image/*"
+            capture="environment"
             onChange={handleUpload}
             disabled={uploading || photos.length >= MAX_PHOTOS}
             className="hidden"

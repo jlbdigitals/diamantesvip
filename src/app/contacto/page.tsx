@@ -1,17 +1,21 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-surface flex flex-col">
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-10">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-4">
         {/* Logo */}
         <div className="mb-10">
-          <img
+          <Image
             src="/logo-cuadrado.jpeg"
             alt="Diamantes VIP"
+            width={112}
+            height={112}
             className="h-28 w-auto rounded-2xl mx-auto"
+            priority
           />
         </div>
 

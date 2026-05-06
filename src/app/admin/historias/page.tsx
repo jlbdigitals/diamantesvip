@@ -92,6 +92,7 @@ export default function HistoriasManager() {
           ref={fileInputRef}
           type="file"
           accept="image/*,video/*"
+          capture="environment"
           onChange={handleUpload}
           disabled={uploading}
           className="hidden"

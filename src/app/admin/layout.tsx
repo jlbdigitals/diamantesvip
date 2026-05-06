@@ -62,49 +62,49 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       <header className="glass-edge sticky top-0 z-50">
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link href="/admin" className="text-xl font-bold text-brand font-serif tracking-tight">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <Link href="/admin" className="text-xl font-bold text-brand font-serif tracking-tight whitespace-nowrap">
               Panel<span className="text-accent font-light">VIP</span>
             </Link>
-            <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-[0.12em] ${isAdmin ? 'bg-brand text-white' : 'bg-accent text-white'}`}>
+            <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-semibold uppercase tracking-[0.12em] flex-shrink-0 ${isAdmin ? 'bg-brand text-white' : 'bg-accent text-white'}`}>
               {isAdmin ? 'Admin' : 'Escort'}
             </span>
           </div>
 
-          <div className="flex items-center gap-6">
-            <nav className="flex items-center gap-5 text-xs font-medium tracking-[0.08em] uppercase">
-              <Link href="/admin" className="text-muted-light hover:text-brand transition-colors duration-300">
+          <div className="flex items-center gap-4 min-w-0">
+            <nav className="flex items-center gap-5 text-xs font-medium tracking-[0.08em] uppercase overflow-x-auto scrollbar-hide flex-nowrap -mx-1 px-1">
+              <Link href="/admin" className="text-muted-light hover:text-brand transition-colors duration-300 whitespace-nowrap">
                 Panel
               </Link>
               {isAdmin && (
-                <Link href="/admin/escorts" className="text-muted-light hover:text-brand transition-colors duration-300">
+                <Link href="/admin/escorts" className="text-muted-light hover:text-brand transition-colors duration-300 whitespace-nowrap">
                   Escorts
                 </Link>
               )}
               {!isAdmin && (
                 <>
-                  <Link href="/admin/profile" className="text-muted-light hover:text-brand transition-colors duration-300">
+                  <Link href="/admin/profile" className="text-muted-light hover:text-brand transition-colors duration-300 whitespace-nowrap">
                     Perfil
                   </Link>
-                  <Link href="/admin/photos" className="text-muted-light hover:text-brand transition-colors duration-300">
+                  <Link href="/admin/photos" className="text-muted-light hover:text-brand transition-colors duration-300 whitespace-nowrap">
                     Fotos
                   </Link>
-                  <Link href="/admin/membresia" className="text-muted-light hover:text-brand transition-colors duration-300">
+                  <Link href="/admin/membresia" className="text-muted-light hover:text-brand transition-colors duration-300 whitespace-nowrap">
                     Membresía
                   </Link>
-                  <Link href="/admin/historias" className="text-muted-light hover:text-brand transition-colors duration-300">
+                  <Link href="/admin/historias" className="text-muted-light hover:text-brand transition-colors duration-300 whitespace-nowrap">
                     Historias
                   </Link>
                 </>
               )}
               {escortId && (
-                <a href={`/escort/${escortId}`} target="_blank" className="text-accent/70 hover:text-accent transition-colors duration-300">
+                <a href={`/escort/${escortId}`} target="_blank" className="text-accent/70 hover:text-accent transition-colors duration-300 whitespace-nowrap">
                   Perfil público ↗
                 </a>
               )}
             </nav>
-            <button onClick={handleLogout} className="text-muted-light hover:text-accent transition-colors duration-300 text-xs tracking-[0.08em] uppercase">
+            <button onClick={handleLogout} className="text-muted-light hover:text-accent transition-colors duration-300 text-xs tracking-[0.08em] uppercase flex-shrink-0">
               Salir
             </button>
           </div>

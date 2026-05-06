@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Footer() {
   return (
@@ -7,9 +8,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <img
+            <Image
               src="/logo-cuadrado.jpeg"
               alt="Diamantes VIP"
+              width={96}
+              height={96}
               className="h-24 w-auto mb-4 rounded-xl"
             />
             <p className="text-muted text-sm leading-relaxed max-w-xs">
