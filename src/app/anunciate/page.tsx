@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { hash } from 'bcryptjs'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -147,13 +146,12 @@ export default function AnunciatePage() {
 
     setLoading(true)
     try {
-      const hashedPassword = await hash(formData.password, 10)
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: formData.email,
-          password: hashedPassword,
+          password: formData.password,
           name: formData.name,
           alias: formData.alias,
           age: parseInt(formData.age),
