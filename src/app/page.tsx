@@ -29,28 +29,28 @@ export default function LandingPage() {
         <source src="/videos/video_age.mp4" type="video/mp4" />
       </video>
 
-      {/* Overlay oscuro */}
-      <div className="absolute inset-0 bg-black/50" />
+      {/* Overlay suave */}
+      <div className="absolute inset-0 bg-[#1f0f16]/28" />
 
-      {/* Contenido centrado */}
-      <div className="relative flex flex-col items-center gap-6">
-        {/* Logo */}
-        <Image
-          src="/logo-cuadrado.jpeg"
-          alt="Diamantes VIP"
-          width={160}
-          height={160}
-          className="rounded-2xl shadow-2xl"
-          priority
-        />
+      {/* Ventana tipo age verification */}
+      <div className="relative w-full max-w-[520px] rounded-[52px] bg-[#e9a1b2]/95 backdrop-blur-[2px] shadow-[0_24px_70px_rgba(60,24,38,0.35)] px-8 py-12 md:px-12 md:py-14">
+        <div className="flex flex-col items-center justify-between min-h-[520px] md:min-h-[600px]">
+          <Image
+            src="/logo-cuadrado.jpeg"
+            alt="Diamantes VIP"
+            width={360}
+            height={360}
+            className="w-full max-w-[360px] h-auto rounded-[28px]"
+            priority
+          />
 
-        {/* Texto */}
-        <p
-          className="text-center text-2xl md:text-4xl font-bold font-serif tracking-wide"
-          style={{ color: '#f9dade' }}
-        >
-          Pronto
-        </p>
+          <p
+            className="text-center text-white/95 text-4xl md:text-5xl italic tracking-wide"
+            style={{ fontFamily: 'Cormorant Garamond, serif' }}
+          >
+            PRONTO...
+          </p>
+        </div>
       </div>
     </div>
   )
