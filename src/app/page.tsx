@@ -29,7 +29,7 @@ export default function LandingPage() {
       <div className="absolute inset-0 -z-10 bg-black/25" />
 
       <div className="w-full max-w-[300px] rounded-[38px] bg-[#e9a1b2]/95 shadow-[0_20px_50px_rgba(60,24,38,0.30)] px-6 py-8">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-5">
           <Image
             src="/logo_diamantes_pronto.png"
             alt="Diamantes VIP pronto"
@@ -38,6 +38,12 @@ export default function LandingPage() {
             className="w-full max-w-[220px] h-auto"
             priority
           />
+          <p
+            className="text-center text-white/95 text-3xl italic tracking-wide"
+            style={{ fontFamily: 'Cormorant Garamond, serif' }}
+          >
+            Pronto...
+          </p>
         </div>
       </div>
     </div>
