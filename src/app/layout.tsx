@@ -1,10 +1,7 @@
 import type { Metadata } from "next"
 import { Public_Sans, Cormorant_Garamond } from "next/font/google"
 import "./globals.css"
-import { Header } from "@/components/Header"
-import { Footer } from "@/components/Footer"
-import { TopBar } from "@/components/TopBar"
-import { InstallPrompt } from "@/components/InstallPrompt"
+import { SiteChrome } from "@/components/SiteChrome"
 
 const publicSans = Public_Sans({
   variable: "--font-public-sans",
@@ -80,11 +77,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-foreground overflow-x-hidden">
-        <TopBar />
-        <Header />
-        {children}
-        <Footer />
-        <InstallPrompt />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   )
