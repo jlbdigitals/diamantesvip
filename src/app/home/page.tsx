@@ -11,6 +11,14 @@ export const metadata: Metadata = {
   title: 'Scort y acompanantes en Chile',
   description:
     'Explora perfiles de scort y acompanantes en Chile por ciudad, precio y disponibilidad en Diamantes VIP.',
+  alternates: { canonical: '/home' },
+  openGraph: {
+    title: 'Scort y acompanantes en Chile',
+    description:
+      'Explora perfiles de scort y acompanantes en Chile por ciudad, precio y disponibilidad en Diamantes VIP.',
+    url: '/home',
+    type: 'website',
+  },
 }
 
 interface HomeProps {

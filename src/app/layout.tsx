@@ -17,6 +17,7 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://diamantesvip.cl'),
   title: {
     default: "Diamantes VIP - Acompanantes y scort en Chile",
     template: "%s | Diamantes VIP",
@@ -35,6 +36,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
+  icons: {
+    icon: [
+      { url: '/favicono.png', type: 'image/png' },
+      { url: '/favicon.jpeg', type: 'image/jpeg' },
+    ],
+    apple: [{ url: '/favicono.png' }],
+    shortcut: ['/favicono.png'],
+  },
   openGraph: {
     title: "Diamantes VIP - Acompanantes y scort en Chile",
     description:
@@ -43,6 +52,12 @@ export const metadata: Metadata = {
     siteName: "Diamantes VIP",
     locale: "es_CL",
     type: "website",
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Diamantes VIP - Acompanantes y scort en Chile',
+    description:
+      'Directorio de acompanantes y scort en Chile con perfiles verificados y busqueda por ciudad.',
   },
   manifest: "/manifest.json",
   robots: {
@@ -72,8 +87,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Diamantes VIP" />
-        <link rel="apple-touch-icon" href="/favicon.jpeg" />
-        <link rel="icon" type="image/jpeg" href="/favicon.jpeg" />
+        <link rel="apple-touch-icon" href="/favicono.png" />
+        <link rel="icon" type="image/png" href="/favicono.png" />
+        <link rel="shortcut icon" href="/favicono.png" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="min-h-full flex flex-col bg-surface text-foreground overflow-x-hidden">
