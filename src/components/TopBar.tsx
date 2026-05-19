@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 export function TopBar() {
   const pathname = usePathname()
 
-  if (pathname === '/age-verification') return null
+  if (pathname === '/') return null
 
   return (
     <div className="bg-rose text-brand overflow-hidden w-full">

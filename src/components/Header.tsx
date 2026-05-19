@@ -46,15 +46,15 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  if (pathname === '/age-verification') {
+  if (pathname === '/') {
     return null
   }
 
   const navLinks = [
-    { key: 'inicio', href: '/', label: 'Inicio' },
-    { key: 'vip', href: '/?tier=VIP', label: 'Diamantes Vip' },
-    { key: 'gold', href: '/?tier=Gold', label: 'Diamantes Gold' },
-    { key: 'silver', href: '/?tier=Silver', label: 'Diamantes Silver' },
+    { key: 'inicio', href: '/home', label: 'Inicio' },
+    { key: 'vip', href: '/home?tier=VIP', label: 'Diamantes Vip' },
+    { key: 'gold', href: '/home?tier=Gold', label: 'Diamantes Gold' },
+    { key: 'silver', href: '/home?tier=Silver', label: 'Diamantes Silver' },
     { key: 'anunciate', href: '/anunciate', label: 'Anúnciate' },
     { key: 'contacto', href: '/contacto', label: 'Contáctanos' },
   ]
@@ -70,7 +70,7 @@ export function Header() {
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/" className="flex items-center flex-shrink-0">
+          <Link href="/home" className="flex items-center flex-shrink-0">
             <Image
               src="/logo-extendido.jpeg"
               alt="Diamantes VIP"

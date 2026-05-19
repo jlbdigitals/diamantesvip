@@ -7,7 +7,7 @@ export default function AgeVerificationPage() {
   const handleVerify = () => {
     const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString()
     document.cookie = `age-verified=true; path=/; expires=${expires}; SameSite=Lax`
-    window.location.href = '/'
+    window.location.href = '/home'
   }
 
   return (

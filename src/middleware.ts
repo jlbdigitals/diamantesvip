@@ -4,8 +4,8 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  const publicPaths = ['/age-verification', '/presentacion', '/api/auth', '/admin/login', '/admin/register']
-  const isPublicPath = publicPaths.some(path => pathname.startsWith(path))
+  const publicPaths = ['/', '/home', '/age-verification', '/presentacion', '/api/auth', '/admin/login', '/admin/register', '/anunciate', '/contacto']
+  const isPublicPath = publicPaths.some(path => pathname === path || pathname.startsWith(path + '/'))
 
   if (isPublicPath) {
     return NextResponse.next()
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
   const ageVerified = request.cookies.get('age-verified')?.value
 
   if (ageVerified !== 'true') {
-    return NextResponse.redirect(new URL('/age-verification', request.url))
+    return NextResponse.redirect(new URL('/', request.url))
   }
 
   return NextResponse.next()

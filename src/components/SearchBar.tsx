@@ -70,7 +70,7 @@ export function SearchBar({ initialQ = '', initialToggles = [] }: SearchBarProps
         params.set('toggles', Array.from(newToggles).join(','))
       }
       const qs = params.toString()
-      router.push(qs ? `/?${qs}` : '/')
+      router.push(qs ? `/home?${qs}` : '/home')
     },
     [router]
   )
